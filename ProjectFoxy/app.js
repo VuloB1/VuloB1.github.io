@@ -59,7 +59,9 @@
     'shots.viewer.d': 'Thumbnails, GPU zoom and everything at hand.', 'shots.effects.d': '{effects} effects with a preview over the whole image.', 'shots.adjust.d': '{adjust} controls, levels, curves and histogram.',
     'shots.filters.d': '{looks} “looks” with thumbnails of your photo.', 'shots.gif.d': 'Animations with transitions and text.', 'shots.collage.d': 'Grid or free layouts, no limits.', 'shots.compare.d': 'Up to {compare} images with linked zoom.', 'shots.reader.d': 'Manga and comics as CBZ, ZIP or PDF, with double pages.',
     'shots.edit.d': 'Crop, size, adjustments, filters, effects and lens.', 'shots.crop.d': 'Crop, rotate, straighten and frames.', 'shots.lens.d': 'Fixes distortion and vignetting with Lensfun profiles.',
-    'shots.info.d': 'EXIF data and histogram one click away.', 'shots.themes.d': '{themes} themes and {langs} languages, instantly.',
+    'shots.info.d': 'EXIF data and histogram one click away.',
+    'shots.size': 'Size', 'shots.size.d': 'Width, height and scale, with a locked ratio and quality resampling.',
+    'shots.festive': 'Holiday decorations', 'shots.festive.d': 'A discreet garland and details on Halloween, Christmas, New Year and more dates.', 'shots.themes.d': '{themes} themes and {langs} languages, instantly.',
     'fmt.raw': 'Camera RAW', 'fmt.anim': 'Animated GIF · APNG · WebP', 'fmt.webpa': 'Animated WebP',
     'foot.more': 'More projects',
     'foot.lic': 'GPL-3.0-or-later · © 2026 Vulito'
@@ -195,14 +197,10 @@
   }
 
   // Screenshots, GIFs and videos of the gallery. A tab's data-shot is a file name (extension included) looked up in
-  // img/<language>/ and, if it is not there, in img/ — so one video can serve every language.
+  // img/ (the pictures of the program are in Spanish for both languages).
   var pool = ['shot-a', 'shot-b', 'shot-v'].map(function (id) { return document.getElementById(id); });
   var isVideo = function (n) { return /\.(mp4|webm)$/i.test(n); };
-  function loadMedia(el, name) {
-    var retried = lang !== 'es';
-    el.onerror = function () { if (!retried) { retried = true; el.src = 'img/' + name; } };
-    el.src = (lang === 'es' ? 'img/es/' : 'img/') + name;
-  }
+  function loadMedia(el, name) { el.src = 'img/' + name; }
   function showShot(name, label) {
     var cur = pool.filter(function (e) { return e.classList.contains('show'); })[0];
     var vid = isVideo(name);
@@ -218,16 +216,41 @@
     pool[0].alt = pool[1].alt = label || '';
     if (n.title !== undefined) n.title = label || '';
   }
+  function caption(btn) {
+    document.getElementById('shot-cap-t').textContent = btn.querySelector('b').textContent;
+    document.getElementById('shot-cap-d').textContent = btn.querySelector('span').textContent;
+  }
   function shots() {
     var hero = document.querySelector('.hero-shot img'); loadMedia(hero, hero.dataset.shot);
     var on = document.querySelector('#shot-tabs .on');
-    if (on) showShot(on.dataset.shot, on.querySelector('b').textContent);
+    if (on) { showShot(on.dataset.shot, on.querySelector('b').textContent); caption(on); }
   }
   document.getElementById('shot-tabs').addEventListener('click', function (e) {
     var b = e.target.closest('button'); if (!b || b.classList.contains('on')) return;
-    document.querySelectorAll('#shot-tabs button').forEach(function (x) { x.classList.toggle('on', x === b); });
+    document.querySelectorAll('#shot-tabs button').forEach(function (x) { x.classList.toggle('on', x === b); x.setAttribute('aria-selected', x === b); });
     showShot(b.dataset.shot, b.querySelector('b').textContent);
+    caption(b);
   });
+  // arrow keys move along the buttons
+  document.getElementById('shot-tabs').addEventListener('keydown', function (e) {
+    if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    var all = [].slice.call(document.querySelectorAll('#shot-tabs button'));
+    var i = all.indexOf(document.activeElement); if (i < 0) i = all.findIndex(function (x) { return x.classList.contains('on'); });
+    var next = all[(i + (e.key === 'ArrowRight' ? 1 : all.length - 1)) % all.length];
+    next.focus(); next.click(); e.preventDefault();
+  });
+  // a click on the picture shows it as large as it is
+  (function () {
+    var box = document.createElement('div'); box.className = 'lightbox'; box.innerHTML = '<img alt="">'; document.body.appendChild(box);
+    var close = function () { box.classList.remove('open'); };
+    box.addEventListener('click', close);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') close(); });
+    document.querySelector('#shot-fig .swap').addEventListener('click', function () {
+      var cur = pool.filter(function (e) { return e.classList.contains('show') && e.tagName === 'IMG'; })[0];
+      if (!cur || !cur.src) return;
+      box.firstChild.src = cur.src; box.firstChild.alt = cur.alt; box.classList.add('open');
+    });
+  })();
 
   document.getElementById('lang').addEventListener('click', function () { setLang(lang === 'es' ? 'en' : 'es'); });
   document.getElementById('theme').addEventListener('click', function () {

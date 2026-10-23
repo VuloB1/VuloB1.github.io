@@ -32,6 +32,12 @@
     <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18-3-3-3-15 0-18z"/></symbol>
     <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.5C9.5 4.6 6 4.4 3 5.2v13.2c3-.8 6.5-.6 9 1.3 2.5-1.9 6-2.1 9-1.3V5.2c-3-.8-6.5-.6-9 1.3zM12 6.5v13.2"/></symbol>
     <symbol id="i-spark" viewBox="0 0 24 24"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 17v4M17 19h4"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol>
+    <symbol id="i-crop" viewBox="0 0 24 24"><path d="M6 3v15h15M3 6h15v15"/></symbol>
+    <symbol id="i-resize" viewBox="0 0 24 24"><path d="M4 14v6h6M20 10V4h-6M4 20l6-6M20 4l-6 6"/></symbol>
+    <symbol id="i-filters" viewBox="0 0 24 24"><circle cx="9" cy="9" r="5.5"/><circle cx="15" cy="9" r="5.5"/><circle cx="12" cy="15" r="5.5"/></symbol>
+    <symbol id="i-lens" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 3l2.6 5.6 6.1.7-4.5 4.2 1.2 6L12 16.4 6.6 19.5l1.2-6L3.3 9.3l6.1-.7z"/></symbol>
     <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></symbol>
   </defs>
 </svg>
@@ -81,7 +87,7 @@
 
     <div class="stage rise" style="--d:6">
       <figure class="window hero-shot" id="hero-shot">
-        <img data-shot="visor.webp" src="img/es/visor.webp" alt="Project Foxy: el visor con la barra de miniaturas" width="1280" height="800" fetchpriority="high">
+        <img data-shot="visor.webp" src="img/visor.webp" alt="Project Foxy: el visor con la barra de miniaturas" width="1512" height="1041" fetchpriority="high">
       </figure>
     </div>
   </div>
@@ -106,27 +112,29 @@
     <p class="sub" data-reveal data-i18n="shots.sub">Capturas del programa real.</p>
 
     <div class="showcase" data-reveal>
-      <div class="tabs" role="tablist" id="shot-tabs">
-        <button role="tab" class="on" data-shot="visor.webp"><b data-i18n="shots.viewer">Visor</b><span data-i18n="shots.viewer.d">Miniaturas, zoom por GPU y todo a mano.</span></button>
-        <button role="tab" data-shot="editar.webp"><b data-i18n="shots.edit">Editar</b><span data-i18n="shots.edit.d">Recortar, tamaño, ajustes, filtros, efectos y lente.</span></button>
-        <button role="tab" data-shot="ajustes.webp"><b data-i18n="shots.adjust">Ajustes</b><span data-i18n="shots.adjust.d">{adjust} controles, niveles, curvas e histograma.</span></button>
-        <button role="tab" data-shot="filtros.webp"><b data-i18n="shots.filters">Filtros</b><span data-i18n="shots.filters.d">{looks} «looks» con miniaturas de tu foto.</span></button>
-        <button role="tab" data-shot="efectos.webp"><b data-i18n="shots.effects">Efectos</b><span data-i18n="shots.effects.d">{effects} efectos con vista previa en toda la imagen.</span></button>
-        <button role="tab" data-shot="recortar.webp"><b data-i18n="shots.crop">Recortar</b><span data-i18n="shots.crop.d">Recorte, giro, enderezado y marcos.</span></button>
-        <button role="tab" data-shot="lente.webp"><b data-i18n="shots.lens">Lente</b><span data-i18n="shots.lens.d">Corrige distorsión y viñeteado con perfiles Lensfun.</span></button>
-        <button role="tab" data-shot="gif.webp"><b data-i18n="shots.gif">GIF animado</b><span data-i18n="shots.gif.d">Animaciones con transiciones y texto.</span></button>
-        <button role="tab" data-shot="collage.webp"><b data-i18n="shots.collage">Collage</b><span data-i18n="shots.collage.d">Diseños de rejilla o libres, sin límites.</span></button>
-        <button role="tab" data-shot="comparador.webp"><b data-i18n="shots.compare">Comparador</b><span data-i18n="shots.compare.d">Hasta {compare} imágenes con zoom vinculado.</span></button>
-        <button role="tab" data-shot="lector.webp"><b data-i18n="shots.reader">Lector</b><span data-i18n="shots.reader.d">Manga y cómics en CBZ, ZIP o PDF, con página doble.</span></button>
-        <button role="tab" data-shot="info.webp"><b data-i18n="shots.info">Información</b><span data-i18n="shots.info.d">Datos EXIF e histograma a un clic.</span></button>
-        <button role="tab" data-shot="temas.webp"><b data-i18n="shots.themes">Temas e idiomas</b><span data-i18n="shots.themes.d">{themes} temas y {langs} idiomas, al instante.</span></button>
+      <div class="gtabs" role="tablist" id="shot-tabs">
+        <button role="tab" class="on" aria-selected="true" data-shot="visor.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-eye"/></svg><b data-i18n="shots.viewer">Visor</b><span data-i18n="shots.viewer.d">Miniaturas, zoom por GPU y todo a mano.</span></button>
+        <button role="tab" aria-selected="false" data-shot="editar.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-edit"/></svg><b data-i18n="shots.edit">Editar</b><span data-i18n="shots.edit.d">Recortar, tamaño, ajustes, filtros, efectos y lente.</span></button>
+        <button role="tab" aria-selected="false" data-shot="recortar.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-crop"/></svg><b data-i18n="shots.crop">Recortar</b><span data-i18n="shots.crop.d">Recorte, giro, enderezado y marcos.</span></button>
+        <button role="tab" aria-selected="false" data-shot="tamano.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-resize"/></svg><b data-i18n="shots.size">Tamaño</b><span data-i18n="shots.size.d">Ancho, alto y escala, con la proporción fija y remuestreo de calidad.</span></button>
+        <button role="tab" aria-selected="false" data-shot="ajustes.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-sliders"/></svg><b data-i18n="shots.adjust">Ajustes</b><span data-i18n="shots.adjust.d">{adjust} controles, niveles, curvas e histograma.</span></button>
+        <button role="tab" aria-selected="false" data-shot="filtros.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-filters"/></svg><b data-i18n="shots.filters">Filtros</b><span data-i18n="shots.filters.d">{looks} «looks» con miniaturas de tu foto.</span></button>
+        <button role="tab" aria-selected="false" data-shot="efectos.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-spark"/></svg><b data-i18n="shots.effects">Efectos</b><span data-i18n="shots.effects.d">{effects} efectos con vista previa en toda la imagen.</span></button>
+        <button role="tab" aria-selected="false" data-shot="lente.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-lens"/></svg><b data-i18n="shots.lens">Lente</b><span data-i18n="shots.lens.d">Corrige distorsión y viñeteado con perfiles Lensfun.</span></button>
+        <button role="tab" aria-selected="false" data-shot="lector.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-book"/></svg><b data-i18n="shots.reader">Lector</b><span data-i18n="shots.reader.d">Manga y cómics en CBZ, ZIP o PDF, con página doble.</span></button>
+        <button role="tab" aria-selected="false" data-shot="gif.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-film"/></svg><b data-i18n="shots.gif">GIF animado</b><span data-i18n="shots.gif.d">Animaciones con transiciones y texto.</span></button>
+        <button role="tab" aria-selected="false" data-shot="collage.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-collage"/></svg><b data-i18n="shots.collage">Collage</b><span data-i18n="shots.collage.d">Diseños de rejilla o libres, sin límites.</span></button>
+        <button role="tab" aria-selected="false" data-shot="comparador.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-compare"/></svg><b data-i18n="shots.compare">Comparador</b><span data-i18n="shots.compare.d">Hasta {compare} imágenes con zoom vinculado.</span></button>
+        <button role="tab" aria-selected="false" data-shot="temas.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-color"/></svg><b data-i18n="shots.themes">Temas e idiomas</b><span data-i18n="shots.themes.d">{themes} temas y {langs} idiomas, al instante.</span></button>
+        <button role="tab" aria-selected="false" data-shot="festivo.webp"><svg class="fi" width="22" height="22" aria-hidden="true"><use href="#i-star"/></svg><b data-i18n="shots.festive">Adornos festivos</b><span data-i18n="shots.festive.d">Guirnalda y detalles discretos en Halloween, Navidad, Año Nuevo y más fechas.</span></button>
       </div>
-      <figure class="window big">
-        <div class="swap">
-          <img id="shot-a" class="show" src="img/es/visor.webp" alt="" width="1280" height="800" loading="lazy">
-          <img id="shot-b" src="" alt="" width="1280" height="800">
+      <figure class="window big" id="shot-fig">
+        <div class="swap" title="">
+          <img id="shot-a" class="show" src="img/visor.webp" alt="" width="1512" height="1041" loading="lazy">
+          <img id="shot-b" src="" alt="" width="1512" height="1041">
           <video id="shot-v" muted loop playsinline preload="none"></video>
         </div>
+        <figcaption class="gcap" aria-live="polite"><b id="shot-cap-t"></b><span id="shot-cap-d"></span></figcaption>
       </figure>
     </div>
   </div>
