@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glide — limitador de FPS con ritmo de fotogramas preciso</title>
+<meta name="description" content="Glide: limitador de FPS con ritmo de fotogramas preciso para juegos DX11, DX12, OpenGL y Vulkan en Windows. Gratis, licencia MIT.">
+<meta name="theme-color" content="#0f0f12">
+<meta property="og:title" content="Glide — limitador de FPS con ritmo de fotogramas preciso">
+<meta property="og:description" content="Glide: limitador de FPS con ritmo de fotogramas preciso para juegos DX11, DX12, OpenGL y Vulkan en Windows. Gratis, licencia MIT.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="../shared/extra.css">
+<link rel="stylesheet" href="../shared/theme.css">
+<style>
+  :root { --accent: #2f6bff; --accent-ink: #ffffff; --accent-soft: color-mix(in srgb, #2f6bff 14%, #ffffff); --accent2: #14b8a6; --g1: #3b82f6; --g2: #14b8a6; }
+  :root[data-theme="dark"] { --accent: #7aa2ff; --accent-ink: #06122e; --accent-soft: color-mix(in srgb, #7aa2ff 18%, #0f0f12); }
+</style>
+<script>
+  try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  document.documentElement.classList.add('js');
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2.5-7 4 14 2.5-7h5"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18-3-3-3-15 0-18z"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.4"/><circle cx="15" cy="17" r="2.4"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M6 8h12v4a6 6 0 0 1-12 0zM12 18v3"/></symbol>
+<symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+<symbol id="i-screen" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+<symbol id="i-pad" viewBox="0 0 24 24"><path d="M7 8h10a4 4 0 0 1 4 4v3a3 3 0 0 1-5.2 2L14 15h-4l-1.8 2A3 3 0 0 1 3 15v-3a4 4 0 0 1 4-4z"/><path d="M8 11v3M6.5 12.5h3M16 12h.01M18 13.5h.01"/></symbol>
+<symbol id="i-disc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+<symbol id="i-tray" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M3 20h18M9 20v-4M15 20v-4"/></symbol>
+</defs></svg>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="crumb" href="../">Vulito</a>
+    <a class="brand" href="#top"><img src="img/icon.png" alt="" width="28" height="28"><span>Glide</span></a>
+    <nav class="links" id="links">
+      <a href="#por-que" data-i18n="g1">Por qué</a>
+      <a href="#funciones" data-i18n="g2">Funciones</a>
+      <a href="#anticheat" data-i18n="g3">Anti-cheat</a>
+      <a href="#instalar" data-i18n="g4">Instalar</a>
+      <a href="#faq" data-i18n="g5">Preguntas</a>
+    </nav>
+    <div class="tools">
+      <button class="chip-btn" id="lang" aria-label="Idioma / Language">EN</button>
+      <button class="chip-btn" id="theme" aria-label="Tema / Theme">◐</button>
+      <a class="chip-btn" href="https://github.com/VuloB1/glide" aria-label="GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+    </div>
+  </div>
+</header>
+<main id="top">
+<section class="hero">
+  <div class="glow g1" aria-hidden="true"></div>
+  <div class="glow g2" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="logo-hero rise" style="--d:0"><img src="img/icon.png" alt="" width="84" height="84"><span>Glide</span></div>
+    <p class="eyebrow rise" style="--d:1"><span class="dot"></span><span data-i18n="g6">Para Windows 10/11 · Gratis · Licencia MIT</span></p>
+    <h1 class="rise" data-i18n-html="g7" style="--d:2">Fotogramas <em>a ritmo constante</em>, sin tirones.</h1>
+    <p class="lead rise" style="--d:3" data-i18n="g8">Un limitador de FPS con ritmo de fotogramas preciso para juegos DX11, DX12, OpenGL y Vulkan en Windows. Pensado para monitores de alta frecuencia.</p>
+    <div class="cta rise" style="--d:4">
+      <a class="btn primary" href="https://github.com/VuloB1/glide/releases/latest"><svg class="i" width="18" height="18"><use href="#i-down"/></svg><span data-i18n="g9">Descargar para Windows</span></a>
+      <a class="btn" href="https://github.com/VuloB1/glide"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span><span data-i18n="g10">Ver el código</span></span></a>
+    </div>
+    <p class="fine rise" style="--d:5" data-i18n="g11">Instalador por usuario, sin permisos de administrador · versión {version}</p>
+    <div class="stage rise" style="--d:6">
+      <figure class="window" style="max-width: 520px; margin: 0 auto"><img src="img/screenshot.png" alt="" data-alt-es="Glide limitando un juego a 144 FPS" data-alt-en="Glide limiting a game to 144 FPS" width="460" loading="eager"></figure>
+    </div>
+  </div>
+</section>
+<section class="stats">
+  <div class="wrap stats-in" style="grid-template-columns: repeat(4, 1fr)">
+    <div data-reveal><b data-n="apis"></b><span data-i18n="g12">API gráficas</span></div>
+    <div data-reveal><b data-n="langs"></b><span data-i18n="g13">idiomas</span></div>
+    <div data-reveal><b data-n="blocked"></b><span data-i18n="g14">juegos con anti-cheat bloqueados</span></div>
+    <div data-reveal><b data-n="calib"></b><span data-i18n="g15">segundos para calibrar</span></div>
+  </div>
+</section>
+<section id="por-que" class="sec alt">
+  <div class="wrap">
+    <p class="kicker" data-reveal data-i18n="g16">Por qué</p>
+    <h2 data-reveal data-i18n="g17">Un tope de FPS no basta</h2>
+    <p class="sub" data-reveal data-i18n-html="g18">Un tope normal solo controla el promedio. Si los fotogramas llegan en momentos desiguales, el juego sigue sintiéndose a tirones. Glide se engancha a la llamada de presentación de la API gráfica del juego (<code>Present</code> de DXGI, <code>SwapBuffers</code> de OpenGL o <code>vkQueuePresentKHR</code> de Vulkan) y libera cada fotograma en un plazo exacto, así el tiempo entre fotogramas se mantiene plano. En las pruebas, la desviación del tiempo de fotograma ronda los <b>0,01 ms</b>.</p>
+  </div>
+</section>
+<section id="funciones" class="sec">
+  <div class="wrap">
+    <p class="kicker" data-reveal data-i18n="g19">Funciones</p>
+    <h2 data-reveal data-i18n="g20">Pequeño, preciso y fácil de usar</h2>
+    <div class="grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 40px">
+      <article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-clock"/></svg><h3 data-i18n="g21">Ritmo de fotogramas preciso</h3></div><p data-i18n-html="g22">Cada plazo es el anterior más el intervalo, así que no hay deriva acumulada. Espera con un temporizador de alta resolución y termina con una espera activa corta para precisión por debajo del milisegundo.</p></article>
+      <article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-chip"/></svg><h3 data-i18n="g23">DX11, DX12, OpenGL y Vulkan</h3></div><p data-i18n-html="g24">Funciona con DirectX, con OpenGL (por ejemplo Minecraft Java Edition) y con Vulkan, sin necesitar el SDK de Vulkan. Si una pila presenta por dos APIs a la vez (DXVK), solo limita una.</p></article>
+      <article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-sliders"/></svg><h3 data-i18n="g25">Perfiles por juego</h3></div><p data-i18n-html="g26">Eliges el juego en una lista limpia de procesos con ventana (sin lanzadores ni navegadores). Cada juego guarda su propio límite y sus ajustes, y la inyección automática lo engancha la próxima vez que se abra.</p></article>
+      <article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-bolt"/></svg><h3 data-i18n="g27">Calibración automática</h3></div><p data-i18n-html="g28">Pulsa <b>Calibrar</b>: Glide ejecuta el juego sin límite durante 10 segundos, mide tus tiempos reales y sugiere un límite que tu equipo pueda sostener.</p></article>
+      <article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-pulse"/></svg><h3 data-i18n="g29">Gráfica en vivo</h3></div><p data-i18n-html="g30">FPS, promedio, desviación y tiempo máximo de fotograma, enviados directamente desde el juego.</p></article>
+      <article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-tray"/></svg><h3 data-i18n="g31">Segundo plano y arranque</h3></div><p data-i18n-html="g32">Arranque opcional con Windows, y al cerrar la ventana puede quedarse en la bandeja para que la inyección automática siga funcionando. Casi 0 % de CPU y unos 3 MB minimizado.</p></article>
+    </div>
+    <div class="grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 22px">
+      <article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-globe"/></svg><h3 data-i18n="g33">6 idiomas</h3></div><p data-i18n-html="g34">English, Español, Português, 日本語, 中文 y 한국어. Usa el idioma de Windows y se puede cambiar en el programa.</p></article>
+      <article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-shield"/></svg><h3 data-i18n="g35">Actualizaciones seguras</h3></div><p data-i18n-html="g36">Comprueba la última versión una vez al día (se puede apagar) y se actualiza con un clic. Solo ejecuta el instalador si su SHA-256 coincide con el que publica GitHub.</p></article>
+      <article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-code"/></svg><h3 data-i18n="g37">Código abierto</h3></div><p data-i18n-html="g38">Licencia MIT, sin dependencias de terceros. Instalación por usuario, con accesos directos y desinstalación limpia.</p></article>
+    </div>
+    <figure class="window" style="max-width: 420px; margin: 40px auto 0" data-reveal><img src="img/settings.png" alt="" data-alt-es="Página de ajustes de Glide" data-alt-en="Glide settings page" width="380" loading="lazy"></figure>
+  </div>
+</section>
+<section id="anticheat" class="sec alt">
+  <div class="wrap narrow">
+    <p class="kicker" data-reveal data-i18n="g39">Protección anti-cheat</p>
+    <h2 data-reveal data-i18n="g40">No se engancha a juegos con anti-cheat</h2>
+    <p class="sub" data-reveal data-i18n-html="g41">Glide inyecta una DLL en el juego, y los sistemas anti-cheat pueden tratarlo como trampa. Para proteger tu cuenta, <b>se niega a engancharse a juegos que usan anti-cheat</b>, tanto en modo manual como automático.</p>
+    <div class="steps">
+      <div data-reveal><h3 data-i18n="g42">Lista de bloqueo</h3><p data-i18n="g43">Más de 70 títulos y lanzadores conocidos (Valorant, Overwatch, Fortnite, Apex Legends, CS2, Rainbow Six Siege, Escape from Tarkov, Genshin Impact, Call of Duty, GTA V Online, Rust y más).</p></div>
+      <div data-reveal><h3 data-i18n="g44">Análisis de módulos</h3><p data-i18n="g45">Antes de inyectar revisa si el proceso carga módulos anti-cheat (Easy Anti-Cheat, BattlEye, Vanguard, GameGuard, XIGNCODE3, FACEIT, Ricochet y otros) y se detiene si encuentra alguno.</p></div>
+      <div data-reveal><h3 data-i18n="g46">Tus propias entradas</h3><p data-i18n-html="g47">Los juegos bloqueados se ven atenuados con la etiqueta roja BLOCKED y no se pueden elegir. Puedes añadir cualquier exe a la sección <code>[block]</code> de <code>glide.ini</code>.</p></div>
+    </div>
+    <p class="note" data-reveal><span data-i18n="g48">La lista y el análisis son una red de seguridad, no una garantía: el anti-cheat cambia a menudo y algunos juegos lo cargan tarde. Úsalo solo en juegos sin anti-cheat, como los de un jugador o los independientes. Eres responsable de dónde lo usas.</span></p>
+  </div>
+</section>
+<section id="instalar" class="sec">
+  <div class="wrap narrow">
+    <p class="kicker" data-reveal data-i18n="g49">Instalar</p>
+    <h2 data-reveal data-i18n="g50">Cómo empezar</h2>
+    <div class="cta" data-reveal style="justify-content:flex-start; margin: 4px 0 8px">
+      <a class="btn primary" href="https://github.com/VuloB1/glide/releases/latest"><svg class="i" width="18" height="18"><use href="#i-down"/></svg><span data-i18n="g51">Descargar glide-setup.exe</span></a>
+    </div>
+    <div class="steps" style="grid-template-columns: 1fr; gap: 12px; border:0; margin-top: 18px">
+      <div data-reveal><p data-i18n-html="g52">Descarga <b>glide-setup.exe</b> de la <a href="https://github.com/VuloB1/glide/releases/latest">última versión</a> y ejecútalo.</p></div>
+      <div data-reveal><p data-i18n="g53">Abre Glide y arranca tu juego.</p></div>
+      <div data-reveal><p data-i18n-html="g54">Elige el juego en la lista y pulsa <b>Inyectar</b> (o activa la <b>inyección automática</b>).</p></div>
+      <div data-reveal><p data-i18n-html="g55">Pon un límite, o pulsa <b>Calibrar</b> para que te sugiera uno. Una buena regla es unos FPS por debajo de la frecuencia de tu monitor.</p></div>
+    </div>
+    <p class="note" data-reveal><span data-i18n="g56">El instalador no está firmado: Windows SmartScreen o tu antivirus pueden avisar. El código completo está en GitHub y puedes compilarlo tú. Una DLL inyectada en un juego en marcha sigue cargada: tras actualizar Glide, reinicia el juego.</span></p>
+  </div>
+</section>
+<section id="tecnico" class="sec tech alt">
+  <div class="wrap">
+    <p class="kicker" data-reveal data-i18n="g57">Detalles técnicos</p>
+    <h2 data-reveal data-i18n="g58">Para quien quiere los detalles</h2>
+    <div class="tech-grid" style="margin-top:40px">
+      <div class="spec" data-reveal>
+        <h3 data-i18n="g67">Cómo funciona</h3>
+        <dl>
+          <div><dt data-i18n="g59">Inyección</dt><dd data-i18n-html="g60">La interfaz inyecta <code>glide.dll</code> con <code>CreateRemoteThread</code> + <code>LoadLibraryW</code>.</dd></div>
+          <div><dt data-i18n="g61">DirectX</dt><dd data-i18n-html="g62">La DLL parchea la tabla virtual de la cadena de intercambio (<code>Present</code> y <code>Present1</code>).</dd></div>
+          <div><dt data-i18n="g63">OpenGL</dt><dd data-i18n-html="g64">Parchea las tablas de importación de los módulos para <code>SwapBuffers</code> / <code>wglSwapBuffers</code> y las vuelve a revisar según el juego carga bibliotecas (necesario para Java/LWJGL).</dd></div>
+          <div><dt data-i18n="g65">Vulkan</dt><dd data-i18n-html="g66"><code>vkQueuePresentKHR</code> se parchea en línea con un salto atómico de 5 bytes a un trampolín cercano.</dd></div>
+        </dl>
+      </div>
+      <div class="spec" data-reveal>
+        <h3 data-i18n="g76">Notas</h3>
+        <dl>
+          <div><dt data-i18n="g68">Sistema</dt><dd data-i18n-html="g69">Windows 10 / 11, solo juegos de 64 bits.</dd></div>
+          <div><dt data-i18n="g70">Pantalla completa</dt><dd data-i18n-html="g71">La pantalla completa exclusiva no está probada; se recomienda sin bordes o en ventana.</dd></div>
+          <div><dt data-i18n="g72">Pruebas</dt><dd data-i18n-html="g73">Probado con D3D11, OpenGL (Minecraft Java Edition) y <code>vkcube</code> del SDK de Vulkan. Vulkan en juegos reales tiene menos pruebas: avisa si encuentras fallos.</dd></div>
+          <div><dt data-i18n="g74">Estadísticas</dt><dd data-i18n-html="g75">Se comparten en un único bloque de memoria, así que la gráfica en vivo sigue a un solo juego a la vez.</dd></div>
+        </dl>
+      </div>
+      <div class="spec" data-reveal>
+        <h3 data-i18n="g83">Licencia y código</h3>
+        <dl>
+          <div><dt data-i18n="g77">Licencia</dt><dd data-i18n-html="g78">MIT.</dd></div>
+          <div><dt data-i18n="g79">Código</dt><dd data-i18n-html="g80"><a href="https://github.com/VuloB1/glide">github.com/VuloB1/glide</a></dd></div>
+          <div><dt data-i18n="g81">Compilar</dt><dd data-i18n-html="g82">Visual Studio 2022 Build Tools (C++) y el SDK de Windows: <code>build.bat</code> genera <code>glide.dll</code>, <code>glide-ui.exe</code> y <code>glide-setup.exe</code>. Sin dependencias de terceros.</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+<section id="faq" class="sec">
+  <div class="wrap narrow">
+    <p class="kicker" data-reveal data-i18n="g84">Dudas</p>
+    <h2 data-reveal data-i18n="g85">Preguntas frecuentes</h2>
+    <div class="faq" data-reveal>
+      <details><summary data-i18n="g86">¿Por qué no basta con el limitador del propio juego?</summary><div><p data-i18n-html="g87">Muchos solo controlan el promedio. Glide libera cada fotograma en un plazo exacto, así el tiempo entre fotogramas es plano y el movimiento se siente más fluido.</p></div></details>
+      <details><summary data-i18n="g88">¿Es seguro usarlo con juegos online?</summary><div><p data-i18n-html="g89">No lo uses en juegos con anti-cheat: inyecta una DLL y puede contar como trampa. Glide se niega a engancharse a los que reconoce, pero no es una garantía.</p></div></details>
+      <details><summary data-i18n="g90">¿Cuánto cuesta?</summary><div><p data-i18n-html="g91">Nada: es gratis y de código abierto (MIT).</p></div></details>
+      <details><summary data-i18n="g92">¿Por qué me avisa Windows al instalar?</summary><div><p data-i18n-html="g93">El instalador aún no tiene un certificado de firma de código. El código está en GitHub y puedes compilarlo tú.</p></div></details>
+      <details><summary data-i18n="g94">¿Funciona en Linux o macOS?</summary><div><p data-i18n-html="g95">No: es para Windows 10 y 11 de 64 bits.</p></div></details>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span class="brand"><img src="img/icon.png" alt="" width="22" height="22"><span>Glide</span></span>
+    <span data-i18n="g96">Licencia MIT · © 2026 Vulito</span>
+    <span class="flinks">
+      <a href="../" data-i18n="g97">Más proyectos</a>
+      <a href="https://github.com/VuloB1/glide">GitHub</a>
+      <a href="https://github.com/VuloB1/glide/releases/latest">Descargas / Releases</a>
+    </span>
+  </div>
+</footer>
+<script>
+  window.EN = {
+ "g1": "Why",
+ "g2": "Features",
+ "g3": "Anti-cheat",
+ "g4": "Install",
+ "g5": "FAQ",
+ "g6": "For Windows 10/11 · Free · MIT license",
+ "g7": "Frames <em>at a steady pace<\/em>, no stutter.",
+ "g8": "A frame limiter with precise frame pacing for DX11, DX12, OpenGL and Vulkan games on Windows. Built for high-refresh-rate monitors.",
+ "g9": "Download for Windows",
+ "g10": "View the source",
+ "g11": "Per-user installer, no admin rights needed · version {version}",
+ "g12": "graphics APIs",
+ "g13": "languages",
+ "g14": "anti-cheat games blocked",
+ "g15": "seconds to calibrate",
+ "g16": "Why Glide",
+ "g17": "A plain FPS cap is not enough",
+ "g18": "A plain cap only controls the average. If frames are delivered at uneven moments, the game still feels choppy. Glide hooks the present call of the game's graphics API (DXGI <code>Present<\/code>, OpenGL <code>SwapBuffers<\/code> or Vulkan <code>vkQueuePresentKHR<\/code>) and releases every frame on an exact deadline, so the time between frames stays flat. In testing, the frame-time deviation sits around <b>0.01 ms<\/b>.",
+ "g19": "Features",
+ "g20": "Small, precise and easy to use",
+ "g21": "Precise frame pacing",
+ "g22": "Each deadline is the previous one plus the interval, so there is no cumulative drift. It waits on a high-resolution timer, then finishes with a short spin for sub-millisecond accuracy.",
+ "g23": "DX11, DX12, OpenGL and Vulkan",
+ "g24": "Works with DirectX, OpenGL (such as Minecraft Java Edition) and Vulkan, with no Vulkan SDK needed. If a stack presents through two APIs for the same frame (DXVK), only one is limited.",
+ "g25": "Per-game profiles",
+ "g26": "Pick the game from a clean list of windowed processes (no launchers or browsers). Every game keeps its own limit and settings, and auto-inject attaches the next time it starts.",
+ "g27": "Automatic calibration",
+ "g28": "Hit <b>Calibrate<\/b>: Glide runs the game uncapped for 10 seconds, measures your real frame times and suggests a limit your system can hold steadily.",
+ "g29": "Live graph",
+ "g30": "FPS, average, deviation and max frame time, streamed straight from the game.",
+ "g31": "Background and autostart",
+ "g32": "Optional start with Windows, and closing the window can keep Glide in the tray so auto-inject keeps working. About 0% CPU and ~3 MB when minimized.",
+ "g33": "6 languages",
+ "g34": "English, Español, Português, 日本語, 中文 and 한국어. It follows your Windows language and can be changed in the app.",
+ "g35": "Safe updates",
+ "g36": "Checks the latest release once a day (can be turned off) and updates in one click. The installer only runs if its SHA-256 matches the digest GitHub publishes.",
+ "g37": "Open source",
+ "g38": "MIT license, no third-party dependencies. Per-user install, with shortcuts and a clean uninstall.",
+ "g39": "Anti-cheat protection",
+ "g40": "It will not attach to anti-cheat games",
+ "g41": "Glide injects a DLL into the game, which anti-cheat systems can treat as cheating. To protect your account, <b>it refuses to attach to games that use anti-cheat<\/b>, in both manual and automatic mode.",
+ "g42": "Built-in blocklist",
+ "g43": "70+ known titles and launchers (Valorant, Overwatch, Fortnite, Apex Legends, CS2, Rainbow Six Siege, Escape from Tarkov, Genshin Impact, Call of Duty, GTA V Online, Rust and more).",
+ "g44": "Module scanning",
+ "g45": "Before injecting it checks the process for anti-cheat modules (Easy Anti-Cheat, BattlEye, Vanguard, GameGuard, XIGNCODE3, FACEIT, Ricochet and others) and aborts if it finds one.",
+ "g46": "Your own entries",
+ "g47": "Blocked games stay visible but dimmed with a red BLOCKED label and cannot be selected. Add any exe to the <code>[block]<\/code> section of <code>glide.ini<\/code>.",
+ "g48": "The blocklist and module scan are safety nets, not guarantees: anti-cheat changes constantly and some games load it late. Only use Glide on games without anti-cheat, such as single-player and indie titles. You are responsible for what you use it on.",
+ "g49": "Install",
+ "g50": "Getting started",
+ "g51": "Download glide-setup.exe",
+ "g52": "Download <b>glide-setup.exe<\/b> from the <a href=\"https://github.com/VuloB1/glide/releases/latest\">latest release<\/a> and run it.",
+ "g53": "Open Glide and start your game.",
+ "g54": "Choose the game in the list and click <b>Inject<\/b> (or turn on <b>Auto-inject<\/b>).",
+ "g55": "Set a limit, or click <b>Calibrate<\/b> for a suggestion. A good rule is a few FPS below your monitor's refresh rate.",
+ "g56": "The installer is not code-signed, so Windows SmartScreen or your antivirus may warn. The full source is on GitHub and you can build it yourself. A DLL injected into a running game stays loaded: after updating Glide, restart the game.",
+ "g57": "Technical details",
+ "g58": "For those who want the details",
+ "g59": "Injection",
+ "g60": "The UI injects <code>glide.dll<\/code> with <code>CreateRemoteThread<\/code> + <code>LoadLibraryW<\/code>.",
+ "g61": "DirectX",
+ "g62": "The DLL patches the swap chain vtable (<code>Present<\/code> and <code>Present1<\/code>).",
+ "g63": "OpenGL",
+ "g64": "Patches the import tables for <code>SwapBuffers<\/code> / <code>wglSwapBuffers<\/code> and rescans as the game loads libraries (needed for Java/LWJGL).",
+ "g65": "Vulkan",
+ "g66": "<code>vkQueuePresentKHR<\/code> is patched inline with an atomic 5-byte jump to a nearby stub.",
+ "g67": "How it works",
+ "g68": "System",
+ "g69": "Windows 10 / 11, 64-bit games only.",
+ "g70": "Fullscreen",
+ "g71": "Exclusive fullscreen is not tested; borderless and windowed are recommended.",
+ "g72": "Testing",
+ "g73": "Tested with D3D11, OpenGL (Minecraft Java Edition) and the Vulkan SDK's <code>vkcube<\/code>. Vulkan in real games has had less testing, so please report issues.",
+ "g74": "Stats",
+ "g75": "Stats are shared through one memory block, so the live graph follows one game at a time.",
+ "g76": "Notes",
+ "g77": "License",
+ "g78": "MIT.",
+ "g79": "Source",
+ "g80": "<a href=\"https://github.com/VuloB1/glide\">github.com/VuloB1/glide<\/a>",
+ "g81": "Build",
+ "g82": "Visual Studio 2022 Build Tools (C++) and the Windows SDK: <code>build.bat<\/code> produces <code>glide.dll<\/code>, <code>glide-ui.exe<\/code> and <code>glide-setup.exe<\/code>. No third-party dependencies.",
+ "g83": "License and source",
+ "g84": "Questions",
+ "g85": "Frequently asked questions",
+ "g86": "Why not just use the game's own limiter?",
+ "g87": "Many only control the average. Glide releases every frame on an exact deadline, so the time between frames is flat and motion feels smoother.",
+ "g88": "Is it safe to use with online games?",
+ "g89": "Do not use it on games with anti-cheat: it injects a DLL and that can count as cheating. Glide refuses to attach to the ones it recognises, but that is not a guarantee.",
+ "g90": "How much does it cost?",
+ "g91": "Nothing: it is free and open source (MIT).",
+ "g92": "Why does Windows warn me when installing?",
+ "g93": "The installer does not have a code-signing certificate yet. The source is on GitHub and you can build it yourself.",
+ "g94": "Does it work on Linux or macOS?",
+ "g95": "No: it is for 64-bit Windows 10 and 11.",
+ "g96": "MIT license · © 2026 Vulito",
+ "g97": "More projects"
+,
+ "page.title": "Glide — frame limiter with precise frame pacing"
+};
+  window.NUMBERS = {"apis": 4, "langs": 6, "blocked": 70, "calib": 10, "version": "1.2.3"};
+</script>
+<script src="../shared/site.js"></script>
+</body>
+</html>

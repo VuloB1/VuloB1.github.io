@@ -94,3 +94,16 @@ h1 em, .home-hero h1 em {
 .fx-chips span, .chips span { border: 1px solid color-mix(in srgb, var(--g2) 28%, transparent); background: var(--chip); color: var(--ink); }
 
 .foot { border-top: 1px solid var(--line); }
+
+/* --- front page: more than three projects, the last row centred --- */
+.proj-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 22px; }
+.proj-grid > .proj { flex: 0 1 calc((100% - 44px) / 3); min-width: 280px; }
+.proj.glide { --pc: #3b82f6; }
+.proj.ps1 { --pc: #6366f1; }
+
+/* --- cards that describe a project (PS1 recompilations) --- */
+.card .meta { margin: 0 0 10px; font-size: 13px; letter-spacing: .04em; color: var(--mute); }
+.card .cardlinks { display: flex; flex-wrap: wrap; gap: 10px; margin: 18px 0 0; }
+.card .cardlinks .btn { padding: 10px 18px; font-size: 14px; }
+.card .fx-chips { display: flex; flex-wrap: wrap; gap: 6px; margin: 14px 0 0; padding: 0; }
+.card .fx-chips span { padding: 3px 11px; border-radius: 99px; font-size: 12px; font-weight: 600; }

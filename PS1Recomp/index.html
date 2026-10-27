@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Recompilaciones de PlayStation 1 — Vulito</title>
+<meta name="description" content="Proyectos de recompilación estática de juegos de PlayStation 1 con psxrecomp: Mega Man Legends y Gran Turismo 2, con pantalla panorámica y mejoras modernas.">
+<meta name="theme-color" content="#0f0f12">
+<meta property="og:title" content="Recompilaciones de PlayStation 1 — Vulito">
+<meta property="og:description" content="Proyectos de recompilación estática de juegos de PlayStation 1 con psxrecomp: Mega Man Legends y Gran Turismo 2, con pantalla panorámica y mejoras modernas.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="../shared/extra.css">
+<link rel="stylesheet" href="../shared/theme.css">
+<style>
+  :root { --accent: #5b4bdb; --accent-ink: #ffffff; --accent-soft: color-mix(in srgb, #5b4bdb 14%, #ffffff); --accent2: #22d3ee; --g1: #6366f1; --g2: #22d3ee; }
+  :root[data-theme="dark"] { --accent: #9b8cff; --accent-ink: #120a33; --accent-soft: color-mix(in srgb, #9b8cff 18%, #0f0f12); }
+</style>
+<script>
+  try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  document.documentElement.classList.add('js');
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2.5-7 4 14 2.5-7h5"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18-3-3-3-15 0-18z"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.4"/><circle cx="15" cy="17" r="2.4"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M6 8h12v4a6 6 0 0 1-12 0zM12 18v3"/></symbol>
+<symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/></symbol>
+<symbol id="i-screen" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="12" rx="2"/><path d="M8 21h8M12 17v4"/></symbol>
+<symbol id="i-pad" viewBox="0 0 24 24"><path d="M7 8h10a4 4 0 0 1 4 4v3a3 3 0 0 1-5.2 2L14 15h-4l-1.8 2A3 3 0 0 1 3 15v-3a4 4 0 0 1 4-4z"/><path d="M8 11v3M6.5 12.5h3M16 12h.01M18 13.5h.01"/></symbol>
+<symbol id="i-disc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.5"/></symbol>
+<symbol id="i-warn" viewBox="0 0 24 24"><path d="M12 3l10 18H2z"/><path d="M12 10v5M12 18h.01"/></symbol>
+<symbol id="i-tray" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M3 20h18M9 20v-4M15 20v-4"/></symbol>
+</defs></svg>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="crumb" href="../">Vulito</a>
+    <a class="brand" href="#top"><img src="img/icon.png" alt="" width="28" height="28"><span>PS1 <b>Recomp</b></span></a>
+    <nav class="links" id="links">
+      <a href="#proyectos" data-i18n="g1">Proyectos</a>
+      <a href="#como" data-i18n="g2">Cómo funciona</a>
+      <a href="#requisitos" data-i18n="g3">Requisitos</a>
+      <a href="#faq" data-i18n="g4">Preguntas</a>
+    </nav>
+    <div class="tools">
+      <button class="chip-btn" id="lang" aria-label="Idioma / Language">EN</button>
+      <button class="chip-btn" id="theme" aria-label="Tema / Theme">◐</button>
+      <a class="chip-btn" href="https://github.com/VuloB1/psxrecomp" aria-label="GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+    </div>
+  </div>
+</header>
+<main id="top">
+<section class="hero">
+  <div class="glow g1" aria-hidden="true"></div>
+  <div class="glow g2" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="logo-hero rise" style="--d:0"><img src="img/icon.png" alt="" width="84" height="84"><span>PS1 <b>Recomp</b></span></div>
+    <p class="eyebrow rise" style="--d:1"><span class="dot"></span><span data-i18n="g5">Recompilación estática · PlayStation 1 · Código abierto</span></p>
+    <h1 class="rise" data-i18n-html="g6" style="--d:2">Juegos de PS1 <em>como programas nativos</em>.</h1>
+    <p class="lead rise" style="--d:3" data-i18n="g7">Proyectos que convierten el código de discos de PlayStation en ejecutables para tu PC, construidos sobre psxrecomp. No es un emulador: el juego pasa a ser un programa que tu procesador ejecuta directamente, con pantalla panorámica, mejoras modernas y mods.</p>
+    <div class="cta rise" style="--d:4">
+      <a class="btn primary" href="#proyectos"><svg class="i" width="18" height="18"><use href="#i-pad"/></svg><span data-i18n="g8">Ver los proyectos</span></a>
+      <a class="btn" href="https://github.com/mstan/psxrecomp"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span>psxrecomp</span></a>
+    </div>
+    <p class="fine rise" style="--d:5" data-i18n="g9">Necesitas tu propia imagen de disco: estos repositorios no incluyen código ni recursos de los juegos.</p>
+  </div>
+</section>
+<section id="proyectos" class="sec alt">
+  <div class="wrap">
+    <p class="kicker" data-reveal data-i18n="g10">Proyectos</p>
+    <h2 data-reveal data-i18n="g11">Los juegos</h2>
+    <p class="sub" data-reveal data-i18n="g12">Cada juego es su propio repositorio, construido sobre psxrecomp y recomp-ui, con un lanzador y mejoras que se activan como paquetes de mods.</p>
+    <div class="grid" style="grid-template-columns: repeat(3, 1fr)">
+      <article class="card" data-reveal>
+        <div class="ch"><svg class="ico" width="26" height="26"><use href="#i-disc"/></svg><h3 data-i18n="g13">Mega Man Legends</h3></div>
+        <p class="meta">SLUS-00603 · USA · Capcom · 1997</p>
+        <p data-i18n-html="g14"><b>Versión 0.1.0 publicada</b> para Windows, Linux y macOS. Pantalla panorámica 16:9 nativa (21:9 sin probar), controles modernos con el stick analógico, 60 / 120 Hz, saltar los vídeos y precisión PGXP. Límites conocidos: puede verse una línea blanca fina en algunos bordes del terreno y no se incluyen packs de texturas HD.</p>
+        <p class="fx-chips"><span>16:9</span><span>60 / 120 Hz</span><span>PGXP</span><span>Mods</span></p>
+        <p class="cardlinks"><a class="btn primary" href="https://github.com/VuloB1/MegaManLegendsRecomp/releases/latest"><span data-i18n="g15">Descargar</span></a><a class="btn" href="https://github.com/VuloB1/MegaManLegendsRecomp">GitHub</a></p>
+      </article>
+      <article class="card" data-reveal>
+        <div class="ch"><svg class="ico" width="26" height="26"><use href="#i-disc"/></svg><h3 data-i18n="g16">Gran Turismo 2 · Arcade</h3></div>
+        <p class="meta">SCUS-94455 · USA · Sony · 1999</p>
+        <p data-i18n-html="g17"><b>Estado: temprano pero jugable.</b> Se puede ir del menú a una carrera y conducir, con aristas por pulir. Pantalla panorámica 16:9 nativa (experimental), PGXP (apagado por defecto: cuesta cerca de una cuarta parte de los FPS), saltar vídeos (apagado) y mando analógico. Se compila en tu equipo con tu propio disco.</p>
+        <p class="fx-chips"><span>16:9</span><span>PGXP</span><span>DualShock</span></p>
+        <p class="cardlinks"><a class="btn primary" href="https://github.com/VuloB1/GranTurismo2Recomp">GitHub</a></p>
+      </article>
+      <article class="card" data-reveal>
+        <div class="ch"><svg class="ico" width="26" height="26"><use href="#i-disc"/></svg><h3 data-i18n="g18">Gran Turismo 2 · Simulation</h3></div>
+        <p class="meta">SCUS-94488 · USA · Sony · 1999</p>
+        <p data-i18n-html="g19"><b>Estado: compila, aún sin probarlo de principio a fin.</b> Es el proyecto Arcade reconstruido para el otro disco, y todavía no he probado el modo Simulation yo mismo: espera fallos. Los dos discos de GT2 arrancan programas distintos, así que son dos proyectos; pueden compartir una tarjeta de memoria.</p>
+        <p class="fx-chips"><span>16:9</span><span>PGXP</span></p>
+        <p class="cardlinks"><a class="btn primary" href="https://github.com/VuloB1/GranTurismo2SimRecomp">GitHub</a></p>
+      </article>
+    </div>
+  </div>
+</section>
+<section id="como" class="sec">
+  <div class="wrap">
+    <p class="kicker" data-reveal data-i18n="g20">Cómo funciona</p>
+    <h2 data-reveal data-i18n="g21">De un disco a un programa nativo</h2>
+    <p class="sub" data-reveal data-i18n="g22">psxrecomp es un recompilador estático de propósito general para la PlayStation 1: traduce el código MIPS R3000A del juego a C, lo compila a x64 y lo enlaza con un entorno de ejecución que imita el hardware. Es obra de mstan y de RetroPortingToolkit; yo mantengo un fork y estos proyectos de juegos encima.</p>
+    <div class="steps">
+      <div data-reveal><h3 data-i18n="g23">1 · Tu disco</h3><p data-i18n="g24">Aportas tu propia imagen legal del juego. Los repositorios no contienen código ni recursos.</p></div>
+      <div data-reveal><h3 data-i18n="g25">2 · Recompilación</h3><p data-i18n="g26">El código del disco se traduce a C en tu equipo y se compila a un ejecutable nativo.</p></div>
+      <div data-reveal><h3 data-i18n="g27">3 · Mods y mejoras</h3><p data-i18n="g28">Pantalla panorámica, controles, frecuencia de imagen y PGXP son paquetes de mods que activas en el lanzador.</p></div>
+    </div>
+    <div class="grid" style="grid-template-columns: repeat(3, 1fr); margin-top: 28px">
+      <article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-chip"/></svg><h3 data-i18n="g29">No es un emulador</h3></div><p data-i18n-html="g30">El juego se convierte en un programa que tu CPU ejecuta directamente, enlazado con un entorno de ejecución de hardware preciso.</p></article>
+      <article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-shield"/></svg><h3 data-i18n="g31">BIOS incluida</h3></div><p data-i18n-html="g32">Usa por defecto la OpenBIOS de código abierto que lleva incluida, así que normalmente no hace falta un volcado de la BIOS original; también acepta una BIOS retail compatible.</p></article>
+      <article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-screen"/></svg><h3 data-i18n="g33">Pensado para el PC moderno</h3></div><p data-i18n-html="g34">Pantalla panorámica, supersampling, cambio de idioma en vivo, mods y un lanzador propio en cada juego.</p></article>
+    </div>
+  </div>
+</section>
+<section id="requisitos" class="sec alt">
+  <div class="wrap narrow">
+    <p class="kicker" data-reveal data-i18n="g35">Requisitos</p>
+    <h2 data-reveal data-i18n="g36">Qué necesitas</h2>
+    <div class="steps" style="grid-template-columns: 1fr; gap: 12px; border:0; margin-top: 18px">
+      <div data-reveal><p data-i18n-html="g37"><b>Tu propio disco</b> del juego (imagen legal). Estos proyectos no distribuyen código ni recursos de los juegos.</p></div>
+      <div data-reveal><p data-i18n-html="g38"><b>Mega Man Legends:</b> descarga la versión ya compilada para tu sistema desde GitHub. <b>Gran Turismo 2:</b> por ahora se compila desde el código fuente en tu equipo (las instrucciones están en cada repositorio).</p></div>
+      <div data-reveal><p data-i18n="g39">Un mando es lo recomendable: los proyectos usan el modo analógico del DualShock.</p></div>
+    </div>
+    <p class="note" data-reveal><span data-i18n="g40">Son proyectos de aficionado y en desarrollo: cada repositorio indica su estado real, y el de Gran Turismo 2 · Simulation todavía no se ha probado entero.</span></p>
+  </div>
+</section>
+<section id="faq" class="sec">
+  <div class="wrap narrow">
+    <p class="kicker" data-reveal data-i18n="g41">Dudas</p>
+    <h2 data-reveal data-i18n="g42">Preguntas frecuentes</h2>
+    <div class="faq" data-reveal>
+      <details><summary data-i18n="g43">¿Es un emulador?</summary><div><p data-i18n-html="g44">No. Es una recompilación estática: el código del juego se traduce a C y se compila como un ejecutable nativo.</p></div></details>
+      <details><summary data-i18n="g45">¿Incluye los juegos?</summary><div><p data-i18n-html="g46">No. Necesitas tu propio disco legal; el código se genera en tu equipo a partir de él.</p></div></details>
+      <details><summary data-i18n="g47">¿Necesito la BIOS de PlayStation?</summary><div><p data-i18n-html="g48">Normalmente no: se usa la OpenBIOS de código abierto incluida. Si prefieres, puedes aportar una BIOS retail compatible.</p></div></details>
+      <details><summary data-i18n="g49">¿En qué sistemas funciona?</summary><div><p data-i18n-html="g50">Mega Man Legends tiene versiones para Windows, Linux y macOS. Gran Turismo 2 se compila desde el código fuente.</p></div></details>
+      <details><summary data-i18n="g51">¿Quién hizo el framework?</summary><div><p data-i18n-html="g52">psxrecomp es de mstan y RetroPortingToolkit. Estos juegos son proyectos míos construidos sobre él, y también mantengo un fork.</p></div></details>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span class="brand"><img src="img/icon.png" alt="" width="22" height="22"><span>PS1 <b>Recomp</b></span></span>
+    <span data-i18n="g53">Proyectos de aficionado · © 2026 Vulito</span>
+    <span class="flinks">
+      <a href="../" data-i18n="g54">Más proyectos</a>
+      <a href="https://github.com/mstan/psxrecomp">psxrecomp</a>
+      <a href="https://github.com/VuloB1">GitHub</a>
+    </span>
+  </div>
+</footer>
+<script>
+  window.EN = {
+ "g1": "Projects",
+ "g2": "How it works",
+ "g3": "Requirements",
+ "g4": "FAQ",
+ "g5": "Static recompilation · PlayStation 1 · Open source",
+ "g6": "PS1 games <em>as native programs<\/em>.",
+ "g7": "Projects that turn the code of PlayStation discs into native executables for your PC, built on psxrecomp. It is not an emulator: the game becomes a program your processor runs directly, with widescreen, modern enhancements and mods.",
+ "g8": "See the projects",
+ "g9": "You need your own disc image: these repositories contain no game code or assets.",
+ "g10": "Projects",
+ "g11": "The games",
+ "g12": "Each game is its own repository, built on psxrecomp and recomp-ui, with a launcher and enhancements that switch on as mod packages.",
+ "g13": "Mega Man Legends",
+ "g14": "<b>Version 0.1.0 released<\/b> for Windows, Linux and macOS. Native 16:9 widescreen (21:9 untested), modern controls with the analog stick, 60 / 120 Hz, skippable videos and PGXP precision. Known limits: a thin white line can appear along some terrain edges and no HD texture packs are shipped.",
+ "g15": "Download",
+ "g16": "Gran Turismo 2 · Arcade",
+ "g17": "<b>Status: early but playable.<\/b> You can go from the menus to a race and drive, with rough edges left. Native 16:9 widescreen (experimental), PGXP (off by default: it costs about a quarter of the frame rate), skippable videos (off) and analog pad. It is built on your machine from your own disc.",
+ "g18": "Gran Turismo 2 · Simulation",
+ "g19": "<b>Status: builds, not yet played through.<\/b> It is the Arcade project rebuilt for the other disc, and I have not tested Simulation mode myself yet: expect problems. GT2 shipped as two discs that boot different programs, so they are two projects; they can share one memory card.",
+ "g20": "How it works",
+ "g21": "From a disc to a native program",
+ "g22": "psxrecomp is a general-purpose static recompiler for the PlayStation 1: it translates the game's MIPS R3000A code to C, compiles it to x64 and links it against a hardware-accurate runtime. It is the work of mstan and RetroPortingToolkit; I keep a fork and these game projects on top of it.",
+ "g23": "1 · Your disc",
+ "g24": "You supply your own legal image of the game. The repositories contain no code or assets.",
+ "g25": "2 · Recompilation",
+ "g26": "The disc's code is translated to C on your machine and compiled to a native executable.",
+ "g27": "3 · Mods and enhancements",
+ "g28": "Widescreen, controls, frame rate and PGXP are mod packages you switch on in the launcher.",
+ "g29": "Not an emulator",
+ "g30": "The game becomes a program your CPU runs directly, linked against a hardware-accurate runtime.",
+ "g31": "BIOS included",
+ "g32": "It uses the bundled open-source OpenBIOS by default, so a retail BIOS dump is not normally required; a compatible retail BIOS is also supported.",
+ "g33": "Built for the modern PC",
+ "g34": "Widescreen, supersampling, live language switching, mods and a launcher of their own in every game.",
+ "g35": "Requirements",
+ "g36": "What you need",
+ "g37": "<b>Your own disc<\/b> of the game (a legal image). These projects do not distribute game code or assets.",
+ "g38": "<b>Mega Man Legends:<\/b> download the ready-made build for your system from GitHub. <b>Gran Turismo 2:<\/b> for now it is built from source on your machine (the instructions are in each repository).",
+ "g39": "A controller is recommended: the projects use the DualShock's analog mode.",
+ "g40": "These are hobby projects under development: each repository states its real status, and Gran Turismo 2 · Simulation has not been played through yet.",
+ "g41": "Questions",
+ "g42": "Frequently asked questions",
+ "g43": "Is it an emulator?",
+ "g44": "No. It is a static recompilation: the game's code is translated to C and compiled as a native executable.",
+ "g45": "Does it include the games?",
+ "g46": "No. You need your own legal disc; the code is generated on your machine from it.",
+ "g47": "Do I need the PlayStation BIOS?",
+ "g48": "Normally not: the bundled open-source OpenBIOS is used. If you prefer, you can supply a compatible retail BIOS.",
+ "g49": "Which systems does it run on?",
+ "g50": "Mega Man Legends has builds for Windows, Linux and macOS. Gran Turismo 2 is built from source.",
+ "g51": "Who made the framework?",
+ "g52": "psxrecomp is by mstan and RetroPortingToolkit. These games are projects of mine built on it, and I also keep a fork.",
+ "g53": "Hobby projects · © 2026 Vulito",
+ "g54": "More projects"
+,
+ "page.title": "PS1 Recompilations — Vulito"
+};
+  window.NUMBERS = {};
+</script>
+<script src="../shared/site.js"></script>
+</body>
+</html>

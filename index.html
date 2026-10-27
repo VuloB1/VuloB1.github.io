@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vulito — proyectos de software</title>
-<meta name="description" content="Proyectos de Vulito: Project Foxy (visor y editor de imágenes), Project Ciel (compañera de IA local) y Twitch Chat Keepalive (extensión para Firefox).">
+<meta name="description" content="Proyectos de Vulito: Project Foxy (visor y editor de imágenes), Project Ciel (compañera de IA local), Glide (limitador de FPS), recompilaciones de juegos de PS1 y Twitch Chat Keepalive (extensión para Firefox).">
 <meta name="theme-color" content="#0f0f12">
 <meta property="og:title" content="Vulito — proyectos de software">
 <meta property="og:description" content="Un visor de imágenes, una compañera de IA local y una extensión para Twitch.">
@@ -57,7 +57,7 @@
     <div class="wrap">
       <p class="eyebrow rise" style="--d:0"><span class="dot"></span><span data-i18n="hero.badge">Software hecho por Vulito</span></p>
       <h1 class="rise" style="--d:1" data-i18n-html="hero.title">Cosas que <em>construyo</em> para usar y compartir.</h1>
-      <p class="lead rise" style="--d:2" data-i18n="hero.lead">Un visor de imágenes, una compañera de IA que vive en tu PC y una extensión para Twitch. Cada proyecto tiene su propia página.</p>
+      <p class="lead rise" style="--d:2" data-i18n="hero.lead">Un visor de imágenes, una compañera de IA que vive en tu PC, un limitador de FPS, recompilaciones de juegos de PS1 y una extensión para Twitch. Cada proyecto tiene su propia página.</p>
       <div class="cta rise" style="--d:3">
         <a class="btn primary" href="#proyectos" data-i18n="hero.cta">Ver los proyectos</a>
       </div>
@@ -79,9 +79,27 @@
         <a class="proj ciel" href="ProjectCiel/" data-reveal>
           <div class="proj-media"><img src="ProjectCiel/img/chat.webp" alt="" width="1282" height="802" loading="lazy"></div>
           <div class="proj-body">
-            <p class="proj-tags"><span>Windows</span><span data-i18n="tag.once">Pago único</span><span data-i18n="tag.ai">IA local</span></p>
+            <p class="proj-tags"><span>Windows</span><span data-i18n="tag.free">Gratis</span><span data-i18n="tag.open">Código abierto</span><span data-i18n="tag.ai">IA local</span></p>
             <h2>Project Ciel</h2>
             <p data-i18n="ciel.p">Tu compañera de IA en tu propia PC: personalidad, memoria y voz para chatear, hablar y hacer streaming.</p>
+            <span class="proj-go"><span data-i18n="go">Ver página</span> <b>→</b></span>
+          </div>
+        </a>
+        <a class="proj glide" href="Glide/" data-reveal>
+          <div class="proj-media icon"><img src="Glide/img/icon.png" alt="" width="128" height="128" loading="lazy"></div>
+          <div class="proj-body">
+            <p class="proj-tags"><span>Windows</span><span data-i18n="tag.free">Gratis</span><span>MIT</span></p>
+            <h2>Glide</h2>
+            <p data-i18n="glide.p">Limitador de FPS con ritmo de fotogramas preciso para juegos DX11, DX12, OpenGL y Vulkan.</p>
+            <span class="proj-go"><span data-i18n="go">Ver página</span> <b>→</b></span>
+          </div>
+        </a>
+        <a class="proj ps1" href="PS1Recomp/" data-reveal>
+          <div class="proj-media icon"><img src="PS1Recomp/img/icon.png" alt="" width="128" height="128" loading="lazy"></div>
+          <div class="proj-body">
+            <p class="proj-tags"><span>PlayStation 1</span><span data-i18n="tag.open">Código abierto</span><span data-i18n="tag.wip">En desarrollo</span></p>
+            <h2 data-i18n="ps1.h">Recompilaciones de PS1</h2>
+            <p data-i18n="ps1.p">Mega Man Legends y Gran Turismo 2 como programas nativos, con pantalla panorámica y mejoras modernas.</p>
             <span class="proj-go"><span data-i18n="go">Ver página</span> <b>→</b></span>
           </div>
         </a>
@@ -123,6 +141,8 @@
     <span class="flinks">
       <a href="ProjectFoxy/">Project Foxy</a>
       <a href="ProjectCiel/">Project Ciel</a>
+      <a href="Glide/">Glide</a>
+      <a href="PS1Recomp/">PS1 Recomp</a>
       <a href="TwitchChatKeepalive/">Twitch Chat Keepalive</a>
     </span>
   </div>
@@ -134,12 +154,16 @@
     'nav.projects': 'Projects', 'nav.links': 'Links',
     'hero.badge': 'Software made by Vulito',
     'hero.title': 'Things I <em>build</em> to use and share.',
-    'hero.lead': 'An image viewer, an AI companion that lives on your PC and a Twitch extension. Each project has its own page.',
+    'hero.lead': 'An image viewer, an AI companion that lives on your PC, a frame limiter, PS1 game recompilations and a Twitch extension. Each project has its own page.',
     'hero.cta': 'See the projects',
-    'tag.free': 'Free', 'tag.open': 'Open source', 'tag.once': 'One-time purchase', 'tag.ai': 'Local AI', 'go': 'See page',
+    'tag.free': 'Free', 'tag.open': 'Open source', 'tag.ai': 'Local AI', 'go': 'See page',
     'foxy.p': 'Fast, light image viewer with a photo editor, GIF maker, collage and compare view.',
     'ciel.p': 'Your AI companion on your own PC: personality, memory and voice to chat, talk and stream.',
     'tw.p': 'Extension that stops Twitch chat from freezing and reconnecting in Firefox.',
+    'glide.p': 'Frame limiter with precise frame pacing for DX11, DX12, OpenGL and Vulkan games.',
+    'ps1.h': 'PS1 recompilations',
+    'ps1.p': 'Mega Man Legends and Gran Turismo 2 as native programs, with widescreen and modern enhancements.',
+    'tag.wip': 'In development',
     'links.k': 'Links', 'links.h': 'Where to find me', 'links.sub': 'News, code and ways to support the work.'
   };
   window.onLangChange = function (l) {

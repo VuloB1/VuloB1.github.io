@@ -8,6 +8,8 @@ Sitio estático (HTML, CSS y JS sin dependencias). Se publica solo al hacer push
 | `/ProjectFoxy/` | Project Foxy (visor y editor de imágenes) |
 | `/ProjectCiel/` | Project Ciel (compañera de IA local) |
 | `/TwitchChatKeepalive/` | Extensión de Firefox para el chat de Twitch |
+| `/Glide/` | Glide (limitador de FPS con ritmo de fotogramas preciso) |
+| `/PS1Recomp/` | Recompilaciones de juegos de PlayStation 1 (Mega Man Legends, Gran Turismo 2) |
 | `shared/` | Estilos y script comunes (`base.css`, `extra.css`, `site.js`) |
 
 Cada página lleva sus textos en español en el HTML y su traducción al inglés en `window.EN` (portada, Ciel y
