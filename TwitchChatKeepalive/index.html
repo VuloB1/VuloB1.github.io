@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Twitch Chat Keepalive — chat de Twitch sin congelamientos en Firefox</title>
 <meta name="description" content="Extensión de Firefox que evita que el chat de Twitch se congele y se reconecte cuando hay poca actividad. Gratis, sin ajustes y sin recopilar datos.">
-<meta name="theme-color" content="#100c18">
+<meta name="theme-color" content="#0f0f12">
 <meta property="og:title" content="Twitch Chat Keepalive">
 <meta property="og:description" content="Extensión de Firefox que evita que el chat de Twitch se congele y se reconecte cuando hay poca actividad. Gratis, sin ajustes y sin recopilar datos.">
 <meta property="og:image" content="https://vulob1.github.io/TwitchChatKeepalive/img/banner.png">
@@ -14,13 +14,10 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="../shared/base.css">
 <link rel="stylesheet" href="../shared/extra.css">
+<link rel="stylesheet" href="../shared/theme.css">
 <style>
-  :root { --accent: #7c3aed; --accent-ink: #ffffff; --accent-soft: #efe7fd; --accent2: #c084fc;
-    --bg: #f8f6fd; --bg2: #f0ecfa; --card: #ffffff; --ink: #1a1230; --mute: #655c80; --line: #e2dcf2; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --accent: #a98bff; --accent-ink: #160a33; --accent-soft: #261a47;
-    --bg: #100c18; --bg2: #161120; --card: #1b1527; --ink: #f1ecfb; --mute: #a69cc0; --line: #2c2340; } }
-  :root[data-theme="dark"] { --accent: #a98bff; --accent-ink: #160a33; --accent-soft: #261a47;
-    --bg: #100c18; --bg2: #161120; --card: #1b1527; --ink: #f1ecfb; --mute: #a69cc0; --line: #2c2340; }
+  :root { --accent: #7c3aed; --accent-ink: #ffffff; --accent-soft: #efe7fd; --accent2: #c026d3; --g1: #7c3aed; --g2: #c026d3; }
+  :root[data-theme="dark"] { --accent: #a98bff; --accent-ink: #160a33; --accent-soft: #261a47; }
 </style>
 <script>
   try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}

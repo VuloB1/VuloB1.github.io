@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Project Ciel — tu compañera de IA local</title>
 <meta name="description" content="Project Ciel: una compañera de IA que vive en tu PC, con personalidad, memoria y voz, para chatear, hablar y hacer streaming. Sin suscripción.">
-<meta name="theme-color" content="#0d1113">
+<meta name="theme-color" content="#0f0f12">
 <meta property="og:title" content="Project Ciel">
 <meta property="og:description" content="Project Ciel: una compañera de IA que vive en tu PC, con personalidad, memoria y voz, para chatear, hablar y hacer streaming. Sin suscripción.">
 <meta property="og:image" content="https://vulob1.github.io/ProjectCiel/img/cover.png">
@@ -14,13 +14,10 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="../shared/base.css">
 <link rel="stylesheet" href="../shared/extra.css">
+<link rel="stylesheet" href="../shared/theme.css">
 <style>
-  :root { --accent: #0d9488; --accent-ink: #ffffff; --accent-soft: #daf5f1; --accent2: #e0558f;
-    --bg: #f6fafa; --bg2: #ecf4f3; --card: #ffffff; --ink: #10201f; --mute: #587270; --line: #d8e6e4; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --accent: #7ff5e6; --accent-ink: #06201d; --accent-soft: #12302d;
-    --bg: #0d1113; --bg2: #12181a; --card: #161d20; --ink: #eaf4f3; --mute: #8fa5a3; --line: #233033; } }
-  :root[data-theme="dark"] { --accent: #7ff5e6; --accent-ink: #06201d; --accent-soft: #12302d;
-    --bg: #0d1113; --bg2: #12181a; --card: #161d20; --ink: #eaf4f3; --mute: #8fa5a3; --line: #233033; }
+  :root { --accent: #0d9488; --accent-ink: #ffffff; --accent-soft: #daf5f1; --accent2: #e0558f; --g1: #0d9488; --g2: #e0558f; }
+  :root[data-theme="dark"] { --accent: #5eead4; --accent-ink: #06201d; --accent-soft: #12302d; }
 </style>
 <script>
   try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}

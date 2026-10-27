@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Vulito — proyectos de software</title>
 <meta name="description" content="Proyectos de Vulito: Project Foxy (visor y editor de imágenes), Project Ciel (compañera de IA local) y Twitch Chat Keepalive (extensión para Firefox).">
-<meta name="theme-color" content="#14100d">
+<meta name="theme-color" content="#0f0f12">
 <meta property="og:title" content="Vulito — proyectos de software">
 <meta property="og:description" content="Un visor de imágenes, una compañera de IA local y una extensión para Twitch.">
 <meta property="og:image" content="https://vulob1.github.io/img/social.png">
@@ -13,16 +13,15 @@
 <link rel="icon" href="img/favicon.png">
 <link rel="stylesheet" href="shared/base.css">
 <link rel="stylesheet" href="shared/extra.css">
+<link rel="stylesheet" href="shared/theme.css">
 <style>
-  :root { --accent: #1d1814; --accent-ink: #fbf8f5; --accent-soft: #efe7df; --accent2: #8b5cf6; }
-  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --accent: #f4eee8; --accent-ink: #14100d; --accent-soft: #2a211b; } }
-  :root[data-theme="dark"] { --accent: #f4eee8; --accent-ink: #14100d; --accent-soft: #2a211b; }
+  :root { --accent: #f25f7d; --accent-ink: #ffffff; --accent-soft: #ffe8ee; --accent2: #7c3aed; --g1: #f25f7d; --g2: #7c3aed; }
+  :root[data-theme="dark"] { --accent: #ff7d98; --accent-ink: #20060d; --accent-soft: #3a1420; }
   .glow { background: none; }
-  .g1 { background: color-mix(in srgb, #ff6a13 38%, transparent) !important; }
-  .g2 { background: color-mix(in srgb, #8b5cf6 34%, transparent) !important; }
-  .g3 { position: absolute; width: 480px; height: 480px; left: 50%; top: -120px; margin-left: -240px; border-radius: 50%; filter: blur(80px); opacity: .45; background: color-mix(in srgb, #1ed3bd 40%, transparent); animation: drift 20s ease-in-out infinite alternate; }
-  .brand .mk { width: 14px; height: 14px; border-radius: 50%; background: conic-gradient(#ff6a13, #1ed3bd, #8b5cf6, #ff6a13); animation: spin 8s linear infinite; }
-  .btn.primary { box-shadow: none; }
+  .g1 { background: color-mix(in srgb, #f25f7d 38%, transparent) !important; }
+  .g2 { background: color-mix(in srgb, #7c3aed 34%, transparent) !important; }
+  .g3 { position: absolute; width: 480px; height: 480px; left: 50%; top: -120px; margin-left: -240px; border-radius: 50%; filter: blur(80px); opacity: .35; background: color-mix(in srgb, #ff6a13 36%, transparent); animation: drift 20s ease-in-out infinite alternate; }
+  .brand .mk { width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #f25f7d, #7c3aed); }
 </style>
 <script>
   try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}

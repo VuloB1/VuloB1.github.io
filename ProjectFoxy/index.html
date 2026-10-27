@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="es">
+<html lang="es" data-theme="dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Project Foxy — visor y editor de imágenes</title>
 <meta name="description" content="Project Foxy: visor de imágenes rápido y ligero para Windows y Linux, con editor de fotos, creador de GIF, collage y comparador. Gratis y de código abierto.">
-<meta name="theme-color" content="#14100d">
+<meta name="theme-color" content="#0f0f12">
 <meta property="og:title" content="Project Foxy">
 <meta property="og:description" content="Visor de imágenes rápido con editor, GIF, collage y comparador. Gratis, GPL-3.0.">
 <meta property="og:image" content="https://vulob1.github.io/ProjectFoxy/img/social.png">
@@ -13,6 +13,10 @@
 <link rel="icon" href="favicon.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="../shared/theme.css">
+<style>
+  :root { --accent2: #f25f7d; --g1: #ff6a13; --g2: #f25f7d; }
+</style>
 <script>
   try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
   document.documentElement.classList.add('js');
