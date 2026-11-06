@@ -4,7 +4,7 @@ Sitio estático (HTML, CSS y JS sin dependencias). Se publica solo al hacer push
 
 | Ruta | Qué es |
 |---|---|
-| `/` | Portada con las tarjetas de los proyectos |
+| `/` | Portada (diseño «Nexo»: `index.html` con `home/styles.css`, `home/script.js` y `home/assets/`) |
 | `/ProjectFoxy/` | Project Foxy (visor y editor de imágenes) |
 | `/ProjectCiel/` | Project Ciel (compañera de IA local) |
 | `/TwitchChatKeepalive/` | Extensión de Firefox para el chat de Twitch |
