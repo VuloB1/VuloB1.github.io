@@ -138,3 +138,9 @@ body{margin:0;background:light-dark(#edf1f1,#091218)}
 #vulito-nexo .ds-socials a:hover{border-bottom-color:var(--ds-blue);color:var(--ds-blue)}
 #vulito-nexo .ds-footer{flex-wrap:wrap}
 @media(max-width:650px){#vulito-nexo .ds-tool{height:34px;min-width:38px}#vulito-nexo .ds-socials{justify-content:flex-start}}
+
+/* not as wide: on a wide screen the page is a centred column, with the dark (or light) of the theme at the sides */
+html{background:#05090d}
+html[data-theme="light"]{background:#cdd8db}
+body{background:transparent}
+#vulito-nexo .ds-site{max-width:1180px;margin:0 auto;box-shadow:0 0 0 1px var(--ds-line),0 40px 140px #0009}
