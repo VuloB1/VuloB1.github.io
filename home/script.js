@@ -9,7 +9,7 @@
  // The page is written in Spanish. Each project has its Spanish and English text; the rest of the texts are
  // translated through this list (the Spanish text of an element -> its English one).
  const projects={
-  foxy:{id:'001',title:['Project','Foxy'],short:'PROJECT FOXY',url:'https://vulob1.github.io/ProjectFoxy/',
+  foxy:{id:'001',title:['Foxy','Viewer'],short:'FOXY VIEWER',url:'https://vulob1.github.io/ProjectFoxy/',
    es:{category:'IMÁGENES / CREACIÓN',subtitle:'Un lugar para ver más.',description:'Explora tu colección de imágenes y haz algo nuevo con ella. Un visor con editor de fotos, creador de GIF, collage y comparador.',platform:'Windows / Linux',type:'Imágenes y edición'},
    en:{category:'IMAGES / CREATION',subtitle:'A place to see more.',description:'Explore your picture collection and make something new with it. A viewer with a photo editor, GIF maker, collage and compare view.',platform:'Windows / Linux',type:'Images and editing'}},
   ciel:{id:'002',title:['Project','Ciel'],short:'PROJECT CIEL',url:'https://vulob1.github.io/ProjectCiel/',

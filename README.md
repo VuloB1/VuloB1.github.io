@@ -5,7 +5,7 @@ Sitio estático (HTML, CSS y JS sin dependencias). Se publica solo al hacer push
 | Ruta | Qué es |
 |---|---|
 | `/` | Portada (diseño «Nexo»: `index.html` con `home/styles.css`, `home/script.js` y `home/assets/`) |
-| `/ProjectFoxy/` | Project Foxy (visor y editor de imágenes) |
+| `/ProjectFoxy/` | Foxy Viewer (visor y editor de imágenes) |
 | `/ProjectCiel/` | Project Ciel (compañera de IA local) |
 | `/TwitchChatKeepalive/` | Extensión de Firefox para el chat de Twitch |
 | `/Glide/` | Glide (limitador de FPS con ritmo de fotogramas preciso) |
@@ -25,7 +25,7 @@ Twitch) o en `app.js` (Foxy). El idioma y el tema se recuerdan en todo el sitio.
 2. Suma una tarjeta en `index.html` (copia un `<a class="proj ...">`) y un color en `shared/extra.css`.
 3. El color de cada página está en el `<style>` de su `<head>` (`--accent` y paleta).
 
-## Project Foxy
+## Foxy Viewer
 
 ### Qué se actualiza solo
 

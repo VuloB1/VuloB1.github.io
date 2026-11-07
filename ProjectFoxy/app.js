@@ -39,12 +39,12 @@
     'ed.create.h': 'Create', 'ed.create.p': 'Animated GIF/APNG/WebP and collages, from the title bar.',
     'fmt.h': 'Formats', 'fmt.open': 'Opens', 'fmt.save': 'Saves', 'fmt.make': 'Creates',
     'dl.h': 'Download', 'dl.sub': 'Latest version:', 'dl.notes': 'release notes', 'dl.get': 'Download',
-    'dl.setup.h': 'Installer', 'dl.setup.p': 'Needs no administrator rights. Creates the shortcut and, if you want, adds Project Foxy to “Open with” and Default apps.',
+    'dl.setup.h': 'Installer', 'dl.setup.p': 'Needs no administrator rights. Creates the shortcut and, if you want, adds Foxy Viewer to “Open with” and Default apps.',
     'dl.port.h': 'Portable', 'dl.port.p': 'Unzip the whole folder and open ProjectFoxy.exe. It keeps its settings next to it and does not touch the registry.',
     'dl.ai.p': 'No installation. Any 64-bit distribution with glibc 2.35 or newer, on X11 and Wayland.',
     'dl.fp.p': 'Carries its own runtime: works on old or very different distributions (Debian 11, Ubuntu 20.04, RHEL 8-9…).',
     'dl.note': 'Every file comes with its SHA-256 checksum (<a href="https://github.com/VuloB1/ProjectFoxy/releases/latest">SHA256SUMS.txt</a>). Windows may warn “Windows protected your PC” because the program is not signed yet: <em>More info → Run anyway</em>.',
-    'os.h': 'Free and open source', 'os.p1': 'Project Foxy is released under the GPL-3.0-or-later license. You can read the code, build it, propose changes or translate it into your language.',
+    'os.h': 'Free and open source', 'os.p1': 'Foxy Viewer is released under the GPL-3.0-or-later license. You can read the code, build it, propose changes or translate it into your language.',
     'os.p2': 'It asks for no account, uses no cloud, and nothing in the program connects to the internet to work.',
     'os.repo': 'See the code on GitHub',
     'os.f1': 'Qt Quick with GPU acceleration', 'os.f2': 'image and RAW decoding', 'os.f3': 'metadata and lens profiles', 'os.f4': 'automated tests on every change, on Windows and Linux',
@@ -191,7 +191,7 @@
       if (n.hasAttribute('data-i18n-html')) n.innerHTML = text; else n.textContent = text;
     });
     document.getElementById('lang').textContent = l === 'es' ? 'EN' : 'ES';
-    document.title = l === 'es' ? 'Project Foxy — visor y editor de imágenes' : 'Project Foxy — image viewer and editor';
+    document.title = l === 'es' ? 'Foxy Viewer — visor y editor de imágenes' : 'Foxy Viewer — image viewer and editor';
     shots();
     applyRelease();
   }
