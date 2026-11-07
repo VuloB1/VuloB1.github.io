@@ -14,14 +14,14 @@ Sitio estático (HTML, CSS y JS sin dependencias). Se publica solo al hacer push
 | `/Coreflow/` | Coreflow (desaparcar núcleos de CPU con un clic) |
 | `/Chameleon/` | Chameleon (mando Switch Pro como mando de Xbox 360) |
 | `/PixelPBR/` | PixelPBR (shader de Minecraft con labPBR y sombras pixel-art) |
-| `shared/` | Estilos y script comunes (`base.css`, `extra.css`, `site.js`) |
+| `shared/` | Estilos y script comunes (`base.css`, `extra.css`, `theme.css`, `site.js`) y `nexo.css`, que viste todas las páginas de proyecto con el look de la portada |
 
 Cada página lleva sus textos en español en el HTML y su traducción al inglés en `window.EN` (portada, Ciel y
 Twitch) o en `app.js` (Foxy). El idioma y el tema se recuerdan en todo el sitio.
 
 ## Agregar un proyecto nuevo
 
-1. Copia una carpeta de proyecto (por ejemplo `TwitchChatKeepalive/`) y adapta el HTML.
+1. Copia una carpeta de proyecto (por ejemplo `TwitchChatKeepalive/`) y adapta el HTML. Deja el enlace a `../shared/nexo.css` después de `theme.css`: ahí está el estilo de la portada.
 2. Suma una tarjeta en `index.html` (copia un `<a class="proj ...">`) y un color en `shared/extra.css`.
 3. El color de cada página está en el `<style>` de su `<head>` (`--accent` y paleta).
 

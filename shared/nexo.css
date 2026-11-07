@@ -1,0 +1,109 @@
+/* The look of the home page ("Nexo") for every project page: deep teal-black (or pale blue-grey in light mode), thin 1px lines,
+   square corners, Rajdhani for titles, IBM Plex Mono for the small uppercase labels and Manrope for text.
+   It loads after theme.css and only re-skins what the shared sheets define, so each page keeps its own accent colour
+   (--accent / --accent2 in its <style>) as the one touch of colour: buttons, highlighted words, numbers. */
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap');
+
+:root,
+:root[data-theme="dark"] {
+  --bg: #091218; --bg2: #0c1b24; --card: #0c1b24; --ink: #e4edf0; --mute: #91a5b0; --line: #243740;
+  --shadow: 0 30px 80px -34px rgba(0, 0, 0, .9);
+  --grid: rgba(217, 241, 255, .035); --glass: rgba(9, 18, 24, .84); --chip: rgba(140, 202, 232, .06);
+  --nx: #8ccae8; --r: 3px;
+}
+:root[data-theme="light"] {
+  --bg: #edf1f1; --bg2: #e3eaec; --card: #f6f9f9; --ink: #1d333e; --mute: #657984; --line: #c6d3d8;
+  --shadow: 0 30px 80px -40px rgba(29, 51, 62, .3);
+  --grid: rgba(29, 51, 62, .05); --glass: rgba(237, 241, 241, .88); --chip: rgba(44, 119, 155, .07);
+  --nx: #2c779b;
+}
+
+body { font-family: Manrope, "Noto Sans", "Segoe UI", system-ui, sans-serif; font-size: 15px; line-height: 1.7; }
+body::before { background-size: 90px 90px; }
+h1, h2, h3, .brand, .logo-hero, .hero-brand { font-family: Rajdhani, "Noto Sans", "Segoe UI", sans-serif; }
+h1 { font-weight: 300; letter-spacing: -.01em; line-height: 1.02; font-size: clamp(46px, 7.4vw, 92px); }
+h2 { font-weight: 400; letter-spacing: 0; line-height: 1.08; font-size: clamp(32px, 4.6vw, 54px); }
+h3 { font-weight: 600; letter-spacing: .03em; }
+h1 em { background: none; -webkit-text-fill-color: currentColor; color: var(--accent); font-weight: 400; }
+.lead, .sub { color: var(--mute); }
+.lead { font-size: clamp(16px, 1.7vw, 19px); }
+
+/* the small mono labels */
+.eyebrow, .kicker, .stats span, .links a, .btn, .chip-btn, .crumb, .flinks a, .foot-in > span, .spec h3, .fine {
+  font-family: "IBM Plex Mono", ui-monospace, Consolas, monospace; text-transform: uppercase; letter-spacing: .13em; font-weight: 400;
+}
+.eyebrow, .kicker, .links a, .chip-btn, .crumb, .flinks a, .foot-in > span, .spec h3, .fine { font-size: 10.5px; }
+.stats span { font-size: 10.5px; line-height: 1.6; }
+.btn { font-size: 11px; }
+
+/* "01 / FEATURES": each section's kicker carries its number */
+main { counter-reset: nx; }
+.sec .kicker::before { counter-increment: nx; content: "0" counter(nx) " / "; color: var(--accent); }
+.kicker { color: var(--mute); }
+
+/* bar */
+.nav { background: var(--glass); border-bottom: 1px solid var(--line); }
+.nav-in { height: 72px; }
+.brand { font-weight: 500; letter-spacing: .2em; text-transform: uppercase; font-size: 15px; }
+.brand b { background: none; -webkit-text-fill-color: currentColor; color: var(--accent); font-weight: 500; }
+.links a:hover, .links a.on { background: transparent; box-shadow: none; color: var(--ink); }
+.links a.on { color: var(--accent); }
+.crumb::after { content: "/"; }
+.progress { background: var(--accent); height: 2px; }
+
+/* square things */
+.chip-btn, .links a, .crumb, .eyebrow, .btn, .tag, .chips span { border-radius: 0; }
+.chip-btn { background: transparent; border: 1px solid var(--line); min-width: 40px; }
+.chip-btn:hover { border-color: var(--accent); color: var(--accent); }
+.btn { padding: 15px 24px; background: transparent; border: 1px solid var(--line); color: var(--ink); box-shadow: none; }
+.btn:hover { border-color: var(--accent); color: var(--accent); transform: none; }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); }
+.btn.primary:hover { filter: brightness(1.08); color: var(--accent-ink); }
+.eyebrow { background: transparent; border: 1px solid var(--line); }
+.brand img, .logo-hero img, .hero-brand img { border-radius: 4px; box-shadow: none; }
+.card, .window, .steps > div, .ba > div, .note-box, .facts li, .proj, pre, .fx-panel, .faq details { border-radius: var(--r); }
+.card, .steps > div, .ba > div, .note-box, .facts li { background: var(--card); border: 1px solid var(--line); box-shadow: none; }
+.card:hover { border-color: color-mix(in srgb, var(--accent) 55%, var(--line)); transform: none; }
+.window { background: var(--card); border: 1px solid var(--line); box-shadow: 0 30px 80px -50px rgba(0, 0, 0, .8); }
+.ico { border-radius: 0; background: transparent; border: 1px solid var(--line); color: var(--accent); }
+.steps > div::before { color: var(--accent); font-family: "IBM Plex Mono", ui-monospace, monospace; letter-spacing: .1em; }
+.note-box { border-left: 2px solid var(--accent); }
+
+/* hero: the home page's 90px grid over a faint blue wash */
+.hero { background: linear-gradient(180deg, color-mix(in srgb, var(--nx) 7%, transparent), transparent 72%); border-bottom: 1px solid var(--line); }
+.hero::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(90deg, transparent 0 89px, var(--grid) 89px 90px), repeating-linear-gradient(0deg, transparent 0 89px, var(--grid) 89px 90px);
+}
+.hero .glow, .glow { opacity: .14; }
+.dot, .dot::after { background: var(--accent); }
+
+/* numbers, sections, footer */
+.stats { border-bottom: 1px solid var(--line); padding: 44px 0 40px; }
+.stats b { font-family: Rajdhani, sans-serif; font-weight: 300; color: var(--ink); font-size: clamp(44px, 6vw, 72px); letter-spacing: 0; }
+.stats-in > div { border-left: 1px solid var(--line); }
+.stats-in > div:first-child { border-left: 0; }
+.sec { padding: 96px 0; }
+.sec.alt { background: var(--bg2); border-block: 1px solid var(--line); }
+.spec h3 { border-bottom: 1px solid var(--accent); padding-bottom: 12px; }
+.foot { border-top: 1px solid var(--line); }
+details > summary { font-family: Manrope, sans-serif; }
+::selection { background: color-mix(in srgb, var(--accent) 35%, transparent); }
+
+/* phones: the pages set 3 columns inline on some grids, which kept them from stacking */
+@media (max-width: 760px) {
+  .grid, .steps, .tech-grid, .ba { grid-template-columns: 1fr !important; }
+  .stats-in { grid-template-columns: 1fr !important; gap: 0 !important; }
+  .stats-in > div { border-left: 0; border-top: 1px solid var(--line); padding: 18px 0; }
+  .stats-in > div:first-child { border-top: 0; }
+  .nav-in { gap: 12px; }
+  .grid > *, .steps > *, .tech-grid > *, .dl, .spec { min-width: 0; }
+  pre { max-width: 100%; overflow-x: auto; }
+  .links { display: none; }
+}
+
+/* gallery tabs and chips: square like the rest, with the page accent on the active one */
+.fx-tab, .fx-chips span, .tabs button, .proj-tags span { border-radius: 0; }
+.fx-tab { background: transparent; border: 1px solid var(--line); font-family: "IBM Plex Mono", ui-monospace, monospace; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; box-shadow: none; }
+.fx-tab:hover { border-color: var(--accent); }
+.fx-tab.on, .fx-tab.active, .fx-tab[aria-selected="true"], .tabs button.on { background: var(--accent); border-color: var(--accent); color: var(--accent-ink); box-shadow: none; }
