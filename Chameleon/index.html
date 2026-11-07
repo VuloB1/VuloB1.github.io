@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chameleon — usa un mando Switch Pro como un solo mando de Xbox 360 en Windows</title>
+<meta name="description" content="App de bandeja para Windows que hace que un mando Nintendo Switch Pro parezca un único mando de Xbox 360 para todos los juegos, por Bluetooth o USB, sin duplicados ni temblor del stick.">
+<meta name="theme-color" content="#0f0f12">
+<meta property="og:title" content="Chameleon">
+<meta property="og:description" content="App de bandeja para Windows que hace que un mando Nintendo Switch Pro parezca un único mando de Xbox 360 para todos los juegos, por Bluetooth o USB, sin duplicados ni temblor del stick.">
+<meta property="og:image" content="https://vulob1.github.io/Chameleon/img/banner.webp">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="../shared/extra.css">
+<link rel="stylesheet" href="../shared/theme.css">
+<style>
+  :root { --accent: #16a34a; --accent-ink: #ffffff; --accent-soft: #dcf5e4; --accent2: #3aa0ff; --g1: #16a34a; --g2: #3aa0ff; }
+  :root[data-theme="dark"] { --accent: #4ade80; --accent-ink: #052e16; --accent-soft: #123522; }
+</style>
+<script>
+  try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  document.documentElement.classList.add('js');
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18-3-3-3-15 0-18z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.4"/><circle cx="15" cy="17" r="2.4"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2.5-7 4 14 2.5-7h5"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M6 8h12v4a6 6 0 0 1-12 0zM12 18v3"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+<symbol id="i-cpu" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 3v4M15 3v4M9 17v4M15 17v4M3 9h4M3 15h4M17 9h4M17 15h4"/></symbol>
+<symbol id="i-pad" viewBox="0 0 24 24"><path d="M7 8h10a4 4 0 0 1 4 4v1a3 3 0 0 1-5.2 2L14 14h-4l-1.8 1A3 3 0 0 1 3 13v-1a4 4 0 0 1 4-4zM8 10.5v3M6.5 12h3"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></symbol>
+<symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></symbol>
+<symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 7h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 2-.8 2-1.8 0-1.2-1-1.5-1-2.6 0-.9.7-1.6 1.6-1.6H17a4 4 0 0 0 4-4C21 6.4 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="14.5" cy="7.5" r="1"/></symbol>
+</defs></svg>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="crumb" href="../">Vulito</a>
+    <a class="brand" href="#top"><img src="img/icon.png" alt="" width="28" height="28"><span>Cha<b>meleon</b></span></a>
+    <nav class="links" id="links"><a data-i18n="t1" href="#funciones">Funciones</a><a data-i18n="t2" href="#instalar">Instalar</a><a data-i18n="t3" href="#faq">Preguntas</a></nav>
+    <div class="tools">
+      <button class="chip-btn" id="lang" aria-label="Idioma / Language">EN</button>
+      <button class="chip-btn" id="theme" aria-label="Tema / Theme">◐</button>
+      <a class="chip-btn" href="https://github.com/VuloB1/chameleon-pro-controller" aria-label="GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="glow g1" aria-hidden="true"></div>
+  <div class="glow g2" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="logo-hero rise" style="--d:0"><img src="img/icon.png" alt="" width="84" height="84"><span>Cha<b>meleon</b></span></div>
+    <p class="eyebrow rise" style="--d:1"><span class="dot"></span><span data-i18n="t31">Windows 10/11 x64 · Gratis · Licencia MIT</span></p>
+    <h1 data-i18n-html="t32" class="rise" style="--d:2">Tu mando de Switch, como <em>un solo mando de Xbox 360</em>.</h1>
+    <p data-i18n="t33" class="lead rise" style="--d:3">Hace que un mando Nintendo Switch Pro parezca un mando de Xbox 360 normal para todos los juegos, por Bluetooth o USB. Oculta el mando real para que no haya duplicados.</p>
+    <div class="cta rise" style="--d:4">
+      <a class="btn primary" href="https://github.com/VuloB1/chameleon-pro-controller/releases/latest"><svg class="i" width="18" height="18"><use href="#i-down"/></svg><span data-i18n="t34">Descargar</span></a>
+      <a class="btn" href="https://github.com/VuloB1/chameleon-pro-controller"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span data-i18n="t35">Ver el código</span></a>
+    </div>
+    <p data-i18n="t36" class="fine rise" style="--d:5">Windows 10/11 x64 · el instalador añade los dos controladores que necesita</p>
+    <figure class="window rise" style="--d:6; max-width: 760px; margin: 44px auto 0"><img src="img/banner.webp" alt="" data-alt-es="Chameleon: mando Switch Pro como un mando de Xbox 360" data-alt-en="Chameleon: Switch Pro Controller as an Xbox 360 pad" width="760" loading="eager"></figure>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap stats-in" style="grid-template-columns: repeat(3, 1fr)"><div data-reveal><b data-n="conns"></b><span data-i18n="t4">formas de conectar: Bluetooth y USB</span></div><div data-reveal><b data-n="pads"></b><span data-i18n="t5">mando virtual, sin duplicados</span></div><div data-reveal><b data-n="langs"></b><span data-i18n="t6">idiomas</span></div></div>
+</section>
+
+<section id="funciones" class="sec alt">
+  <div class="wrap">
+    <p data-i18n="t37" class="kicker" data-reveal>Funciones</p>
+    <h2 data-i18n="t38" data-reveal>Lo que arregla a propósito</h2>
+    <p data-i18n="t39" class="sub" data-reveal>Los conversores habituales suelen mostrar dos mandos, temblar en el centro del stick o pelearse con Steam.</p>
+    <div class="grid" style="grid-template-columns: repeat(3, 1fr)"><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-pad"/></svg><h3 data-i18n="t7">Un mando, sin duplicados</h3></div><p data-i18n="t8">El mando físico se oculta de los juegos con HidHide; solo existe el Xbox 360 virtual.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-plug"/></svg><h3 data-i18n="t9">Bluetooth y USB</h3></div><p data-i18n="t10">Lo encuentra solo y sigue intentándolo si se desconecta. Sin reiniciar nada.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-pulse"/></svg><h3 data-i18n="t11">Sin temblor del stick</h3></div><p data-i18n="t12">Mide el centro cada vez que conecta y aplica una zona muerta radial configurable.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-bolt"/></svg><h3 data-i18n="t13">Vibración y batería</h3></div><p data-i18n="t14">Reenvía la vibración de los juegos y avisa en la bandeja cuando la batería está baja.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-cam"/></svg><h3 data-i18n="t15">Botón de captura</h3></div><p data-i18n="t16">Opcional: hace una captura del monitor activo, con sonido de obturador.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-sliders"/></svg><h3 data-i18n="t17">A tu manera</h3></div><p data-i18n="t18">Distribución Xbox o letras Nintendo, apodo del mando y seis idiomas.</p></article></div>
+    
+  </div>
+</section>
+
+<section class="sec alt"><div class="wrap"><div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px"><figure class="window" data-reveal><img src="img/how-it-works.webp" alt="" data-alt-es="Cómo funciona: del mando Pro al Xbox 360 virtual" data-alt-en="How it works: from the Pro Controller to the virtual Xbox 360 pad" width="560" loading="lazy"></figure><figure class="window" data-reveal><img src="img/tray-menu.webp" alt="" data-alt-es="Menú de la bandeja" data-alt-en="Tray menu" width="560" loading="lazy"></figure></div></div></section>
+
+<section id="instalar" class="sec">
+  <div class="wrap">
+    <p data-i18n="t40" class="kicker" data-reveal>Instalar</p>
+    <h2 data-i18n="t41" data-reveal>Instalar y emparejar</h2>
+    <p data-i18n="t42" class="sub" data-reveal>El instalador trae ViGEmBus y HidHide si faltan.</p>
+    <div class="steps"><div data-reveal><h3><span data-i18n="t19">Descarga</span></h3><p data-i18n-html="t20">Baja <b>Chameleon-Setup</b> desde <a href="https://github.com/VuloB1/chameleon-pro-controller/releases/latest">GitHub</a> y ejecútalo como administrador.</p></div><div data-reveal><h3><span data-i18n="t21">Empareja</span></h3><p data-i18n-html="t22">Por Bluetooth, mantén el botón de sincronización hasta que corran las luces y añádelo en Windows. Por USB, solo conéctalo.</p></div><div data-reveal><h3><span data-i18n="t23">Juega</span></h3><p data-i18n-html="t24">Al detectar el mando se calibra un momento (no toques los sticks) y el icono de la bandeja se enciende.</p></div></div>
+    <div class="cta" data-reveal style="justify-content:flex-start; margin: 28px 0 0">
+      <a class="btn primary" href="https://github.com/VuloB1/chameleon-pro-controller/releases/latest"><svg class="i" width="18" height="18"><use href="#i-down"/></svg><span data-i18n="t43">Descargar</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="sec alt">
+  <div class="wrap narrow">
+    <p data-i18n="t44" class="kicker" data-reveal>Dudas</p>
+    <h2 data-i18n="t45" data-reveal>Preguntas frecuentes</h2>
+    <div class="faq" data-reveal><details><summary data-i18n="t25">¿Qué controladores instala?</summary><div><p data-i18n-html="t26"><a href="https://github.com/nefarius/ViGEmBus">ViGEmBus</a> y <a href="https://github.com/nefarius/HidHide">HidHide</a>, solo si faltan. Windows puede pedir reiniciar.</p></div></details><details><summary data-i18n="t27">¿Funciona con Steam?</summary><div><p data-i18n-html="t28">Sí. El mando real sigue oculto mientras Chameleon está abierto, también entre desconexiones, para que Steam no lo agarre al reconectar.</p></div></details><details><summary data-i18n="t29">¿Por qué avisa SmartScreen?</summary><div><p data-i18n-html="t30">El instalador no está firmado. Elige <b>Más información → Ejecutar de todas formas</b>; el código está abierto en <a href="https://github.com/VuloB1/chameleon-pro-controller">GitHub</a>.</p></div></details></div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span class="brand"><img src="img/icon.png" alt="" width="22" height="22"><span>Cha<b>meleon</b></span></span>
+    <span data-i18n="t46">Licencia MIT · © 2026 Vulito</span>
+    <span class="flinks">
+      <a data-i18n="t47" href="../">Más proyectos</a>
+      <a href="https://github.com/VuloB1/chameleon-pro-controller">GitHub</a>
+      <a href="https://github.com/VuloB1/chameleon-pro-controller/issues">Issues</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  window.EN = {
+ "t1": "Features",
+ "t2": "Install",
+ "t3": "FAQ",
+ "t4": "ways to connect: Bluetooth and USB",
+ "t5": "virtual pad, no duplicates",
+ "t6": "languages",
+ "t7": "One controller, no duplicates",
+ "t8": "The physical pad is hidden from games with HidHide; only the virtual Xbox 360 pad exists.",
+ "t9": "Bluetooth and USB",
+ "t10": "It finds the pad by itself and keeps retrying if it goes away. No restarts.",
+ "t11": "No stick jitter",
+ "t12": "It measures the centre every time it connects and applies a configurable radial dead zone.",
+ "t13": "Rumble and battery",
+ "t14": "Forwards games' rumble and flags a low battery in the tray icon.",
+ "t15": "Capture button",
+ "t16": "Optional: takes a screenshot of the active monitor, with a shutter sound.",
+ "t17": "Your way",
+ "t18": "Xbox positions or Nintendo letters, a controller nickname and six languages.",
+ "t19": "Download",
+ "t20": "Get <b>Chameleon-Setup</b> from <a href=\"https://github.com/VuloB1/chameleon-pro-controller/releases/latest\">GitHub</a> and run it as administrator.",
+ "t21": "Pair",
+ "t22": "Over Bluetooth, hold the sync button until the lights run and add it in Windows. Over USB, just plug it in.",
+ "t23": "Play",
+ "t24": "When it sees the pad it calibrates for a moment (do not touch the sticks) and the tray icon turns on.",
+ "t25": "Which drivers does it install?",
+ "t26": "<a href=\"https://github.com/nefarius/ViGEmBus\">ViGEmBus</a> and <a href=\"https://github.com/nefarius/HidHide\">HidHide</a>, only if missing. Windows may ask for a restart.",
+ "t27": "Does it work with Steam?",
+ "t28": "Yes. The real pad stays hidden while Chameleon runs, including between disconnects, so Steam does not grab it on reconnect.",
+ "t29": "Why does SmartScreen warn?",
+ "t30": "The installer is not code-signed. Choose <b>More info → Run anyway</b>; the code is open on <a href=\"https://github.com/VuloB1/chameleon-pro-controller\">GitHub</a>.",
+ "t31": "Windows 10/11 x64 · Free · MIT license",
+ "t32": "Your Switch controller, as <em>one Xbox 360 pad</em>.",
+ "t33": "Makes a Nintendo Switch Pro Controller look like an ordinary Xbox 360 pad to every game, over Bluetooth or USB. It hides the real controller so there are no duplicates.",
+ "t34": "Download",
+ "t35": "View the code",
+ "t36": "Windows 10/11 x64 · the installer adds the two drivers it needs",
+ "t37": "Features",
+ "t38": "What it fixes on purpose",
+ "t39": "The usual converters tend to show two controllers, jitter around the stick centre or fight with Steam.",
+ "t40": "Install",
+ "t41": "Install and pair",
+ "t42": "The installer brings ViGEmBus and HidHide if they are missing.",
+ "t43": "Download",
+ "t44": "Questions",
+ "t45": "Frequently asked questions",
+ "t46": "MIT license · © 2026 Vulito",
+ "t47": "More projects",
+ "page.title": "Chameleon — use a Switch Pro Controller as one Xbox 360 pad on Windows"
+};
+  window.NUMBERS = {"conns": 2, "pads": 1, "langs": 6};
+</script>
+<script src="../shared/site.js"></script>
+</body>
+</html>

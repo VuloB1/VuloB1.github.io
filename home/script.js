@@ -41,6 +41,7 @@
   'Herramientas que uso, cosas que pruebo y software que comparto. Explora cada proyecto a tu propio ritmo.':'Tools I use, things I try and software I share. Explore each project at your own pace.',
   'Imágenes / Creación':'Images / Creation','Inteligencia artificial local':'Local artificial intelligence','Limitador de FPS':'FPS limiter',
   'Recompilaciones de PS1':'PS1 recompilations','Extensión para Twitch':'Twitch extension','En desarrollo':'In development',
+  'Desinstalador de programas':'Program uninstaller','Control de núcleos de CPU':'CPU core control','Adaptador de mando':'Controller adapter','Shader para Minecraft':'Minecraft shader',
   'SIGUE EL CAMINO EN GITHUB':'FOLLOW THE PATH ON GITHUB','Más proyectos en GitHub ↗':'More projects on GitHub ↗',
   'PROYECTOS INDEPENDIENTES.\nHECHOS PARA USAR Y COMPARTIR.':'INDEPENDENT PROJECTS.\nMADE TO USE AND SHARE.'
  };

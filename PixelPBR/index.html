@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PixelPBR — shader de Minecraft con materiales labPBR y sombras pixel-art</title>
+<meta name="description" content="Shader para Minecraft 1.21.1 (Iris) que mantiene el aspecto pixelado y añade materiales labPBR, sombras pixel-art, luz de bloque de colores, cielo procedural y agua barata.">
+<meta name="theme-color" content="#0f0f12">
+<meta property="og:title" content="PixelPBR">
+<meta property="og:description" content="Shader para Minecraft 1.21.1 (Iris) que mantiene el aspecto pixelado y añade materiales labPBR, sombras pixel-art, luz de bloque de colores, cielo procedural y agua barata.">
+<meta property="og:image" content="https://vulob1.github.io/PixelPBR/img/icon.png">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="../shared/extra.css">
+<link rel="stylesheet" href="../shared/theme.css">
+<style>
+  :root { --accent: #65a30d; --accent-ink: #ffffff; --accent-soft: #ecf6d5; --accent2: #f59e0b; --g1: #65a30d; --g2: #f59e0b; }
+  :root[data-theme="dark"] { --accent: #a3e635; --accent-ink: #1a2e05; --accent-soft: #26330f; }
+</style>
+<script>
+  try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  document.documentElement.classList.add('js');
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18-3-3-3-15 0-18z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.4"/><circle cx="15" cy="17" r="2.4"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2.5-7 4 14 2.5-7h5"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M6 8h12v4a6 6 0 0 1-12 0zM12 18v3"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+<symbol id="i-cpu" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 3v4M15 3v4M9 17v4M15 17v4M3 9h4M3 15h4M17 9h4M17 15h4"/></symbol>
+<symbol id="i-pad" viewBox="0 0 24 24"><path d="M7 8h10a4 4 0 0 1 4 4v1a3 3 0 0 1-5.2 2L14 14h-4l-1.8 1A3 3 0 0 1 3 13v-1a4 4 0 0 1 4-4zM8 10.5v3M6.5 12h3"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></symbol>
+<symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></symbol>
+<symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 7h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 2-.8 2-1.8 0-1.2-1-1.5-1-2.6 0-.9.7-1.6 1.6-1.6H17a4 4 0 0 0 4-4C21 6.4 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="14.5" cy="7.5" r="1"/></symbol>
+</defs></svg>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="crumb" href="../">Vulito</a>
+    <a class="brand" href="#top"><img src="img/icon.png" alt="" width="28" height="28"><span>Pixel<b>PBR</b></span></a>
+    <nav class="links" id="links"><a data-i18n="t1" href="#funciones">Funciones</a><a data-i18n="t2" href="#instalar">Instalar</a><a data-i18n="t3" href="#faq">Preguntas</a></nav>
+    <div class="tools">
+      <button class="chip-btn" id="lang" aria-label="Idioma / Language">EN</button>
+      <button class="chip-btn" id="theme" aria-label="Tema / Theme">◐</button>
+      <a class="chip-btn" href="https://github.com/VuloB1/PixelPBR" aria-label="GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="glow g1" aria-hidden="true"></div>
+  <div class="glow g2" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="logo-hero rise" style="--d:0"><img src="img/icon.png" alt="" width="84" height="84"><span>Pixel<b>PBR</b></span></div>
+    <p class="eyebrow rise" style="--d:1"><span class="dot"></span><span data-i18n="t32">Minecraft 1.21.1 · Iris · Gratis</span></p>
+    <h1 data-i18n-html="t33" class="rise" style="--d:2">El aspecto pixelado de siempre, con <em>materiales y luz de verdad</em>.</h1>
+    <p data-i18n="t34" class="lead rise" style="--d:3">Un shader para Minecraft 1.21.1 que respeta la estética vanilla y añade materiales labPBR, sombras pixel-art, luz de bloque de colores y un cielo procedural, sin cargar de más la GPU.</p>
+    <div class="cta rise" style="--d:4">
+      <a class="btn primary" href="https://github.com/VuloB1/PixelPBR/releases/latest"><svg class="i" width="18" height="18"><use href="#i-down"/></svg><span data-i18n="t35">Descargar</span></a>
+      <a class="btn" href="https://github.com/VuloB1/PixelPBR"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span data-i18n="t36">Ver el código</span></a>
+    </div>
+    <p data-i18n="t37" class="fine rise" style="--d:5">Requiere Iris (no funciona con OptiFine) y una GPU con OpenGL 4.3</p>
+    
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap stats-in" style="grid-template-columns: repeat(3, 1fr)"><div data-reveal><b data-n="px"></b><span data-i18n="t4">px: sombras ancladas a la cuadrícula de texturas</span></div><div data-reveal><b data-n="profiles"></b><span data-i18n="t5">perfiles: Low, Medium y High</span></div><div data-reveal><b data-n="packs"></b><span data-i18n="t6">descargas: el shader y un pack de mapas</span></div></div>
+</section>
+
+<section id="funciones" class="sec alt">
+  <div class="wrap">
+    <p data-i18n="t38" class="kicker" data-reveal>Funciones</p>
+    <h2 data-i18n="t39" data-reveal>Pixelado, pero con profundidad</h2>
+    <p data-i18n="t40" class="sub" data-reveal>Todo se puede activar o desactivar desde el menú del shader, con perfiles listos para usar.</p>
+    <div class="grid" style="grid-template-columns: repeat(3, 1fr)"><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-grid"/></svg><h3 data-i18n="t7">Sombras pixel-art</h3></div><p data-i18n="t8">Un valor de sombra por píxel de textura, con bordes suaves escalonados.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-layers"/></svg><h3 data-i18n="t9">Soporte labPBR</h3></div><p data-i18n="t10">Normales, suavidad, F0 y metales, emisión, oclusión y relieve por paralaje opcional.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-bolt"/></svg><h3 data-i18n="t11">Luz de bloque de colores</h3></div><p data-i18n="t12">Las antorchas de alma son azules, las linternas marinas cian y la lava naranja.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-sun"/></svg><h3 data-i18n="t13">Cielo procedural</h3></div><p data-i18n="t14">Sol y luna pixelados con fases, estrellas, auroras y nubes que siguen el clima.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-drop"/></svg><h3 data-i18n="t15">Agua</h3></div><p data-i18n="t16">Olas pixeladas, ondas que se propagan, reflejos y un fondo más claro con cáusticas.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-sliders"/></svg><h3 data-i18n="t17">Mundo vivo</h3></div><p data-i18n="t18">Viento en plantas y hojas, charcos con salpicaduras, nieve, rayos y parpadeo de antorchas.</p></article></div>
+    <p class="note" data-reveal><span data-i18n="t31">Capturas próximamente. Las opciones pesadas (SSAO, rayos de luz, bloom, profundidad de campo…) vienen desactivadas en el perfil Medium.</span></p>
+  </div>
+</section>
+
+
+
+<section id="instalar" class="sec">
+  <div class="wrap">
+    <p data-i18n="t41" class="kicker" data-reveal>Instalar</p>
+    <h2 data-i18n="t42" data-reveal>Tres pasos y a jugar</h2>
+    <p data-i18n="t43" class="sub" data-reveal>Descarga el zip y no lo descomprimas.</p>
+    <div class="steps"><div data-reveal><h3><span data-i18n="t19">Descarga</span></h3><p data-i18n-html="t20">Baja <b>PixelPBR</b> desde <a href="https://github.com/VuloB1/PixelPBR/releases/latest">GitHub</a>. Para mejores resultados, añade también el pack <b>VanillaPBR-Maps</b>.</p></div><div data-reveal><h3><span data-i18n="t21">Cópialo</span></h3><p data-i18n-html="t22">Ponlo en tu carpeta <code>shaderpacks</code>, sin descomprimir.</p></div><div data-reveal><h3><span data-i18n="t23">Actívalo</span></h3><p data-i18n-html="t24">En el juego: <b>Opciones → Ajustes de vídeo → Paquetes de shaders → PixelPBR</b>.</p></div></div>
+    <div class="cta" data-reveal style="justify-content:flex-start; margin: 28px 0 0">
+      <a class="btn primary" href="https://github.com/VuloB1/PixelPBR/releases/latest"><svg class="i" width="18" height="18"><use href="#i-down"/></svg><span data-i18n="t44">Descargar</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="sec alt">
+  <div class="wrap narrow">
+    <p data-i18n="t45" class="kicker" data-reveal>Dudas</p>
+    <h2 data-i18n="t46" data-reveal>Preguntas frecuentes</h2>
+    <div class="faq" data-reveal><details><summary data-i18n="t25">¿Funciona con OptiFine?</summary><div><p data-i18n-html="t26">No. Necesita Iris (probado con Iris 1.8.x y Sodium en NeoForge).</p></div></details><details><summary data-i18n="t27">¿Qué GPU necesito?</summary><div><p data-i18n-html="t28">Una con OpenGL 4.3. La luz de bloque de colores usa compute shaders; desactívala si tu equipo no los soporta.</p></div></details><details><summary data-i18n="t29">¿Qué es VanillaPBR-Maps?</summary><div><p data-i18n-html="t30">Un pack de recursos aparte con solo mapas labPBR (normales y especulares) para las texturas por defecto. No incluye texturas de color de Minecraft.</p></div></details></div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span class="brand"><img src="img/icon.png" alt="" width="22" height="22"><span>Pixel<b>PBR</b></span></span>
+    <span data-i18n="t47">© 2026 Vulito</span>
+    <span class="flinks">
+      <a data-i18n="t48" href="../">Más proyectos</a>
+      <a href="https://github.com/VuloB1/PixelPBR">GitHub</a>
+      <a href="https://github.com/VuloB1/PixelPBR/issues">Issues</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  window.EN = {
+ "t1": "Features",
+ "t2": "Install",
+ "t3": "FAQ",
+ "t4": "px: shadows locked to the texture grid",
+ "t5": "profiles: Low, Medium and High",
+ "t6": "downloads: the shader and a maps pack",
+ "t7": "Pixel-art shadows",
+ "t8": "One shadow value per texture pixel, with soft stepped edges.",
+ "t9": "labPBR support",
+ "t10": "Normals, smoothness, F0 and metals, emission, occlusion and optional parallax relief.",
+ "t11": "Coloured block light",
+ "t12": "Soul torches are blue, sea lanterns cyan and lava orange.",
+ "t13": "Procedural sky",
+ "t14": "Pixel sun and moon with phases, stars, aurora and clouds that follow the weather.",
+ "t15": "Water",
+ "t16": "Pixelated waves, spreading ripples, reflections and a clearer underwater look with caustics.",
+ "t17": "A living world",
+ "t18": "Wind in plants and leaves, puddles with splashes, snow, lightning and torch flicker.",
+ "t19": "Download",
+ "t20": "Get <b>PixelPBR</b> from <a href=\"https://github.com/VuloB1/PixelPBR/releases/latest\">GitHub</a>. For best results also grab the <b>VanillaPBR-Maps</b> pack.",
+ "t21": "Copy it",
+ "t22": "Put it in your <code>shaderpacks</code> folder, unzipped.",
+ "t23": "Turn it on",
+ "t24": "In game: <b>Options → Video Settings → Shader Packs → PixelPBR</b>.",
+ "t25": "Does it work with OptiFine?",
+ "t26": "No. It needs Iris (tested with Iris 1.8.x and Sodium on NeoForge).",
+ "t27": "What GPU do I need?",
+ "t28": "One with OpenGL 4.3. Coloured block light uses compute shaders; turn it off if your setup does not support them.",
+ "t29": "What is VanillaPBR-Maps?",
+ "t30": "A separate resource pack with only labPBR maps (normals and speculars) for the default textures. It ships no Minecraft colour textures.",
+ "t31": "Screenshots coming soon. The heavier options (SSAO, god rays, bloom, depth of field…) are off in the Medium profile.",
+ "t32": "Minecraft 1.21.1 · Iris · Free",
+ "t33": "The vanilla pixel look, with <em>real materials and light</em>.",
+ "t34": "A shader pack for Minecraft 1.21.1 that keeps the vanilla look and adds labPBR materials, pixel-art shadows, coloured block light and a procedural sky, while staying light on the GPU.",
+ "t35": "Download",
+ "t36": "View the code",
+ "t37": "Needs Iris (OptiFine is not supported) and a GPU with OpenGL 4.3",
+ "t38": "Features",
+ "t39": "Pixelated, but with depth",
+ "t40": "Everything can be switched on or off in the shader menu, with ready-made profiles.",
+ "t41": "Install",
+ "t42": "Three steps and play",
+ "t43": "Download the zip and do not unzip it.",
+ "t44": "Download",
+ "t45": "Questions",
+ "t46": "Frequently asked questions",
+ "t47": "© 2026 Vulito",
+ "t48": "More projects",
+ "page.title": "PixelPBR — Minecraft shader with labPBR materials and pixel-art shadows"
+};
+  window.NUMBERS = {"px": 16, "profiles": 3, "packs": 2};
+</script>
+<script src="../shared/site.js"></script>
+</body>
+</html>

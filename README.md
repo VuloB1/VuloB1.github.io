@@ -10,6 +10,10 @@ Sitio estático (HTML, CSS y JS sin dependencias). Se publica solo al hacer push
 | `/TwitchChatKeepalive/` | Extensión de Firefox para el chat de Twitch |
 | `/Glide/` | Glide (limitador de FPS con ritmo de fotogramas preciso) |
 | `/PS1Recomp/` | Recompilaciones de juegos de PlayStation 1 (Mega Man Legends, Gran Turismo 2) |
+| `/VanishUninstaller/` | Vanish Uninstaller (desinstalador de Windows sin publicidad) |
+| `/Coreflow/` | Coreflow (desaparcar núcleos de CPU con un clic) |
+| `/Chameleon/` | Chameleon (mando Switch Pro como mando de Xbox 360) |
+| `/PixelPBR/` | PixelPBR (shader de Minecraft con labPBR y sombras pixel-art) |
 | `shared/` | Estilos y script comunes (`base.css`, `extra.css`, `site.js`) |
 
 Cada página lleva sus textos en español en el HTML y su traducción al inglés en `window.EN` (portada, Ciel y

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vanish Uninstaller — desinstalador de Windows sin publicidad que borra los restos con seguridad</title>
+<meta name="description" content="Desinstalador rápido y sin publicidad para Windows. Busca los restos de cada programa (carpetas, registro, servicios, firewall) y te deja decidir qué borrar. Gratis y de código abierto.">
+<meta name="theme-color" content="#0f0f12">
+<meta property="og:title" content="Vanish Uninstaller">
+<meta property="og:description" content="Desinstalador rápido y sin publicidad para Windows. Busca los restos de cada programa (carpetas, registro, servicios, firewall) y te deja decidir qué borrar. Gratis y de código abierto.">
+<meta property="og:image" content="https://vulob1.github.io/VanishUninstaller/img/programs.webp">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="stylesheet" href="../shared/base.css">
+<link rel="stylesheet" href="../shared/extra.css">
+<link rel="stylesheet" href="../shared/theme.css">
+<style>
+  :root { --accent: #0d9488; --accent-ink: #ffffff; --accent-soft: #d9f5f1; --accent2: #f472a8; --g1: #0d9488; --g2: #f472a8; }
+  :root[data-theme="dark"] { --accent: #2dd4bf; --accent-ink: #052e2b; --accent-soft: #123a37; }
+</style>
+<script>
+  try { var t = localStorage.getItem('theme'); if (t) document.documentElement.dataset.theme = t; } catch (e) {}
+  document.documentElement.classList.add('js');
+</script>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12m0 0l-5-5m5 5l5-5M5 21h14"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></symbol>
+<symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 3L5 14h6l-1 7 8-11h-6z"/></symbol>
+<symbol id="i-code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18-3-3-3-15 0-18z"/></symbol>
+<symbol id="i-sliders" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.4"/><circle cx="15" cy="17" r="2.4"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="i-pulse" viewBox="0 0 24 24"><path d="M3 12h4l2.5-7 4 14 2.5-7h5"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-plug" viewBox="0 0 24 24"><path d="M9 3v5M15 3v5M6 8h12v4a6 6 0 0 1-12 0zM12 18v3"/></symbol>
+<symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/></symbol>
+<symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+<symbol id="i-cpu" viewBox="0 0 24 24"><rect x="7" y="7" width="10" height="10" rx="2"/><path d="M9 3v4M15 3v4M9 17v4M15 17v4M3 9h4M3 15h4M17 9h4M17 15h4"/></symbol>
+<symbol id="i-pad" viewBox="0 0 24 24"><path d="M7 8h10a4 4 0 0 1 4 4v1a3 3 0 0 1-5.2 2L14 14h-4l-1.8 1A3 3 0 0 1 3 13v-1a4 4 0 0 1 4-4zM8 10.5v3M6.5 12h3"/></symbol>
+<symbol id="i-layers" viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5zM3 13l9 5 9-5"/></symbol>
+<symbol id="i-grid" viewBox="0 0 24 24"><path d="M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z"/></symbol>
+<symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/></symbol>
+<symbol id="i-cam" viewBox="0 0 24 24"><path d="M4 7h3l2-3h6l2 3h3v12H4z"/><circle cx="12" cy="13" r="3.5"/></symbol>
+<symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/></symbol>
+<symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 2-.8 2-1.8 0-1.2-1-1.5-1-2.6 0-.9.7-1.6 1.6-1.6H17a4 4 0 0 0 4-4C21 6.4 17 3 12 3z"/><circle cx="7.5" cy="11" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="14.5" cy="7.5" r="1"/></symbol>
+</defs></svg>
+<div class="progress" id="progress" aria-hidden="true"></div>
+<header class="nav" id="nav">
+  <div class="wrap nav-in">
+    <a class="crumb" href="../">Vulito</a>
+    <a class="brand" href="#top"><img src="img/icon.png" alt="" width="28" height="28"><span>Vanish <b>Uninstaller</b></span></a>
+    <nav class="links" id="links"><a data-i18n="t1" href="#funciones">Funciones</a><a data-i18n="t2" href="#instalar">Instalar</a><a data-i18n="t3" href="#faq">Preguntas</a></nav>
+    <div class="tools">
+      <button class="chip-btn" id="lang" aria-label="Idioma / Language">EN</button>
+      <button class="chip-btn" id="theme" aria-label="Tema / Theme">◐</button>
+      <a class="chip-btn" href="https://github.com/VuloB1/vanish-uninstaller" aria-label="GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero">
+  <div class="glow g1" aria-hidden="true"></div>
+  <div class="glow g2" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="logo-hero rise" style="--d:0"><img src="img/icon.png" alt="" width="84" height="84"><span>Vanish <b>Uninstaller</b></span></div>
+    <p class="eyebrow rise" style="--d:1"><span class="dot"></span><span data-i18n="t33">Windows 10/11 · Gratis · Licencia MIT</span></p>
+    <h1 data-i18n-html="t34" class="rise" style="--d:2">Desinstala y deja <em>todo limpio</em>.</h1>
+    <p data-i18n="t35" class="lead rise" style="--d:3">Un desinstalador rápido y sin publicidad que busca lo que cada programa deja atrás y te deja decidir qué borrar. Nada se elimina sin copia de seguridad.</p>
+    <div class="cta rise" style="--d:4">
+      <a class="btn primary" href="https://github.com/VuloB1/vanish-uninstaller/releases/latest"><svg class="i" width="18" height="18"><use href="#i-down"/></svg><span data-i18n="t36">Descargar</span></a>
+      <a class="btn" href="https://github.com/VuloB1/vanish-uninstaller"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.6 7.6 0 0 1 4 0c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span data-i18n="t37">Ver el código</span></a>
+    </div>
+    <p data-i18n="t38" class="fine rise" style="--d:5">Windows 10/11 · pide permisos de administrador al abrirse · se actualiza solo</p>
+    <figure class="window rise" style="--d:6; max-width: 760px; margin: 44px auto 0"><img src="img/programs.webp" alt="" data-alt-es="Lista de programas de Vanish Uninstaller con el panel de detalles" data-alt-en="Vanish Uninstaller program list with the details panel" width="760" loading="eager"></figure>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap stats-in" style="grid-template-columns: repeat(3, 1fr)"><div data-reveal><b data-n="langs"></b><span data-i18n="t4">idiomas</span></div><div data-reveal><b data-n="checks"></b><span data-i18n="t5">tipos de problemas de registro que revisa</span></div><div data-reveal><b data-n="days"></b><span data-i18n="t6">días en cuarentena antes de borrar</span></div></div>
+</section>
+
+<section id="funciones" class="sec alt">
+  <div class="wrap">
+    <p data-i18n="t39" class="kicker" data-reveal>Funciones</p>
+    <h2 data-i18n="t40" data-reveal>Limpio, rápido y prudente</h2>
+    <p data-i18n="t41" class="sub" data-reveal>Pensado para quitar lo que sobra sin llevarse nada que no toca.</p>
+    <div class="grid" style="grid-template-columns: repeat(3, 1fr)"><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-shield"/></svg><h3 data-i18n="t7">Restos con nivel de confianza</h3></div><p data-i18n="t8">Carpetas, claves, servicios, inicio automático, tareas y reglas del firewall. Solo lo muy probable viene marcado.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-trash"/></svg><h3 data-i18n="t9">Cuarentena y copias</h3></div><p data-i18n="t10">Los archivos van a cuarentena y cada clave del registro se exporta a un .reg antes de borrarse.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-folder"/></svg><h3 data-i18n="t11">Eliminación forzada</h3></div><p data-i18n="t12">Elige o arrastra una carpeta o archivo y busca todo lo relacionado, aunque no exista desinstalador.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-layers"/></svg><h3 data-i18n="t13">Caché y registro</h3></div><p data-i18n="t14">Limpia temporales y cachés, y repara entradas rotas del registro.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-grid"/></svg><h3 data-i18n="t15">Tienda y lotes</h3></div><p data-i18n="t16">Desinstala apps de la Microsoft Store y varios programas seguidos.</p></article><article class="card" data-reveal><div class="ch"><svg class="ico" width="26" height="26"><use href="#i-palette"/></svg><h3 data-i18n="t17">A tu gusto</h3></div><p data-i18n="t18">Tema claro u oscuro, color de acento, nivel del fondo y seis idiomas.</p></article></div>
+    
+  </div>
+</section>
+
+<section class="sec alt"><div class="wrap"><div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px"><figure class="window" data-reveal><img src="img/leftovers.webp" alt="" data-alt-es="Restos agrupados por confianza" data-alt-en="Leftovers grouped by confidence" width="560" loading="lazy"></figure><figure class="window" data-reveal><img src="img/cache.webp" alt="" data-alt-es="Limpiador de caché" data-alt-en="Cache cleaner" width="560" loading="lazy"></figure></div></div></section>
+
+<section id="instalar" class="sec">
+  <div class="wrap">
+    <p data-i18n="t42" class="kicker" data-reveal>Instalar</p>
+    <h2 data-i18n="t43" data-reveal>Listo en tres pasos</h2>
+    <p data-i18n="t44" class="sub" data-reveal>El instalador no tiene asistente en las actualizaciones: se instalan solas.</p>
+    <div class="steps"><div data-reveal><h3><span data-i18n="t19">Descarga</span></h3><p data-i18n-html="t20">Baja el instalador o la versión portable desde <a href="https://github.com/VuloB1/vanish-uninstaller/releases/latest">GitHub</a>.</p></div><div data-reveal><h3><span data-i18n="t21">Ábrelo</span></h3><p data-i18n-html="t22">Windows puede avisar porque no está firmado: <b>Más información → Ejecutar de todas formas</b>.</p></div><div data-reveal><h3><span data-i18n="t23">Olvídate</span></h3><p data-i18n-html="t24">Comprueba solo si hay una versión nueva y se actualiza con un clic.</p></div></div>
+    <div class="cta" data-reveal style="justify-content:flex-start; margin: 28px 0 0">
+      <a class="btn primary" href="https://github.com/VuloB1/vanish-uninstaller/releases/latest"><svg class="i" width="18" height="18"><use href="#i-down"/></svg><span data-i18n="t45">Descargar</span></a>
+    </div>
+  </div>
+</section>
+
+<section id="faq" class="sec alt">
+  <div class="wrap narrow">
+    <p data-i18n="t46" class="kicker" data-reveal>Dudas</p>
+    <h2 data-i18n="t47" data-reveal>Preguntas frecuentes</h2>
+    <div class="faq" data-reveal><details><summary data-i18n="t25">¿Borra cosas sin avisar?</summary><div><p data-i18n-html="t26">No. Muestra una lista, lo dudoso va sin marcar y todo pasa por cuarentena y copia del registro.</p></div></details><details><summary data-i18n="t27">¿Por qué pide permisos de administrador?</summary><div><p data-i18n-html="t28">Para poder tocar claves de <code>HKLM</code>, servicios y carpetas protegidas. Sin ellos funciona, pero con menos alcance.</p></div></details><details><summary data-i18n="t29">¿Se actualiza solo?</summary><div><p data-i18n-html="t30">Sí, la versión instalada. La portable no se actualiza sola.</p></div></details><details><summary data-i18n="t31">¿Es gratis?</summary><div><p data-i18n-html="t32">Sí, sin publicidad y con licencia MIT. El código está en <a href="https://github.com/VuloB1/vanish-uninstaller">GitHub</a>.</p></div></details></div>
+  </div>
+</section>
+</main>
+
+<footer class="foot">
+  <div class="wrap foot-in">
+    <span class="brand"><img src="img/icon.png" alt="" width="22" height="22"><span>Vanish <b>Uninstaller</b></span></span>
+    <span data-i18n="t48">Licencia MIT · © 2026 Vulito</span>
+    <span class="flinks">
+      <a data-i18n="t49" href="../">Más proyectos</a>
+      <a href="https://github.com/VuloB1/vanish-uninstaller">GitHub</a>
+      <a href="https://github.com/VuloB1/vanish-uninstaller/issues">Issues</a>
+    </span>
+  </div>
+</footer>
+
+<script>
+  window.EN = {
+ "t1": "Features",
+ "t2": "Install",
+ "t3": "FAQ",
+ "t4": "languages",
+ "t5": "kinds of registry problems it checks",
+ "t6": "days in quarantine before deleting",
+ "t7": "Leftovers with a confidence level",
+ "t8": "Folders, keys, services, autostart, tasks and firewall rules. Only the very likely ones come ticked.",
+ "t9": "Quarantine and backups",
+ "t10": "Files go to quarantine and every registry key is exported to a .reg before it is deleted.",
+ "t11": "Force removal",
+ "t12": "Pick or drag a folder or file and find everything linked to it, even with no uninstaller.",
+ "t13": "Cache and registry",
+ "t14": "Cleans temp files and caches, and repairs broken registry entries.",
+ "t15": "Store and batches",
+ "t16": "Uninstalls Microsoft Store apps and several programs in a row.",
+ "t17": "Your way",
+ "t18": "Light or dark theme, accent color, background level and six languages.",
+ "t19": "Download",
+ "t20": "Get the installer or the portable version from <a href=\"https://github.com/VuloB1/vanish-uninstaller/releases/latest\">GitHub</a>.",
+ "t21": "Open it",
+ "t22": "Windows may warn because it is not signed: <b>More info → Run anyway</b>.",
+ "t23": "Forget about it",
+ "t24": "It checks for new versions by itself and updates with one click.",
+ "t25": "Does it delete things without asking?",
+ "t26": "No. It shows a list, doubtful items come unticked and everything goes through quarantine and a registry backup.",
+ "t27": "Why does it ask for administrator rights?",
+ "t28": "To touch <code>HKLM</code> keys, services and protected folders. It works without them, with less reach.",
+ "t29": "Does it update itself?",
+ "t30": "Yes, the installed version. The portable build does not self-update.",
+ "t31": "Is it free?",
+ "t32": "Yes, ad-free and MIT licensed. The code is on <a href=\"https://github.com/VuloB1/vanish-uninstaller\">GitHub</a>.",
+ "t33": "Windows 10/11 · Free · MIT license",
+ "t34": "Uninstall and leave <em>everything clean</em>.",
+ "t35": "A fast, ad-free uninstaller that finds what each program leaves behind and lets you decide what to delete. Nothing is removed without a backup.",
+ "t36": "Download",
+ "t37": "View the code",
+ "t38": "Windows 10/11 · asks for administrator rights on launch · updates itself",
+ "t39": "Features",
+ "t40": "Clean, fast and careful",
+ "t41": "Built to remove what is left over without taking anything that is not yours to take.",
+ "t42": "Install",
+ "t43": "Ready in three steps",
+ "t44": "Updates have no wizard: they install themselves.",
+ "t45": "Download",
+ "t46": "Questions",
+ "t47": "Frequently asked questions",
+ "t48": "MIT license · © 2026 Vulito",
+ "t49": "More projects",
+ "page.title": "Vanish Uninstaller — ad-free Windows uninstaller that removes leftovers safely"
+};
+  window.NUMBERS = {"langs": 6, "checks": 17, "days": 7};
+</script>
+<script src="../shared/site.js"></script>
+</body>
+</html>
