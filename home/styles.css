@@ -144,3 +144,6 @@ html{background:#05090d}
 html[data-theme="light"]{background:#cdd8db}
 body{background:transparent}
 #vulito-nexo .ds-site{max-width:1180px;margin:0 auto;box-shadow:0 0 0 1px var(--ds-line),0 40px 140px #0009}
+
+/* nine projects: the phone list needs more room */
+@media(max-width:650px){#vulito-nexo .ds-hero{min-height:840px}#vulito-nexo .ds-network{height:450px}}

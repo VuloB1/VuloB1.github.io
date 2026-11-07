@@ -4,7 +4,7 @@
  const html=document.documentElement;
  const reduced=matchMedia('(prefers-reduced-motion: reduce)');
  const store={get:k=>{try{return localStorage.getItem(k)}catch(e){return null}},set:(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}}};
- const shots={foxy:document.getElementById('ds-asset-foxy').src,ciel:document.getElementById('ds-asset-ciel').src};
+ const shots={foxy:document.getElementById('ds-asset-foxy').src,ciel:document.getElementById('ds-asset-ciel').src,vanish:document.getElementById('ds-asset-vanish').src,coreflow:document.getElementById('ds-asset-coreflow').src};
 
  // The page is written in Spanish. Each project has its Spanish and English text; the rest of the texts are
  // translated through this list (the Spanish text of an element -> its English one).
@@ -23,7 +23,19 @@
    en:{category:'RECOMPILATION / EXPERIMENTS',subtitle:'Classics find another way.',description:'Mega Man Legends and Gran Turismo 2 as native programs, with widescreen and modern enhancements. A project in development.',platform:'In development',type:'PS1 recompilations',art:'CLASSIC GAMES / NEW POSSIBILITIES'}},
   twitch:{id:'005',title:['Chat','Keepalive'],short:'CHAT KEEPALIVE',url:'https://vulob1.github.io/TwitchChatKeepalive/',
    es:{category:'EXTENSIÓN / FIREFOX',subtitle:'Que la conversación continúe.',description:'Una extensión para evitar que el chat de Twitch se congele y se reconecte en Firefox.',platform:'Firefox',type:'Extensión para Twitch',art:'KEEP THE CONVERSATION GOING'},
-   en:{category:'EXTENSION / FIREFOX',subtitle:'Keep the conversation going.',description:'An extension that stops the Twitch chat from freezing and reconnecting in Firefox.',platform:'Firefox',type:'Twitch extension',art:'KEEP THE CONVERSATION GOING'}}
+   en:{category:'EXTENSION / FIREFOX',subtitle:'Keep the conversation going.',description:'An extension that stops the Twitch chat from freezing and reconnecting in Firefox.',platform:'Firefox',type:'Twitch extension',art:'KEEP THE CONVERSATION GOING'}},
+  vanish:{id:'006',title:['Vanish','Uninstaller'],short:'VANISH UNINSTALLER',url:'https://vulob1.github.io/VanishUninstaller/',
+   es:{category:'HERRAMIENTAS / WINDOWS',subtitle:'Que no quede nada atrás.',description:'Un desinstalador rápido y sin publicidad que busca los restos de cada programa y te deja decidir qué borrar.',platform:'Windows',type:'Desinstalador de programas',art:'LEAVE NOTHING BEHIND'},
+   en:{category:'TOOLS / WINDOWS',subtitle:'Leave nothing behind.',description:'A fast, ad-free uninstaller that finds what each program leaves behind and lets you decide what to delete.',platform:'Windows',type:'Program uninstaller',art:'LEAVE NOTHING BEHIND'}},
+  coreflow:{id:'007',title:['Coreflow'],short:'COREFLOW',url:'https://vulob1.github.io/Coreflow/',
+   es:{category:'SISTEMA / RENDIMIENTO',subtitle:'Todos los núcleos, despiertos.',description:'Una pequeña app de bandeja que desactiva el aparcado de núcleos de la CPU con un clic y te muestra qué hace cada uno.',platform:'Windows',type:'Control de núcleos de CPU',art:'EVERY CORE, AWAKE'},
+   en:{category:'SYSTEM / PERFORMANCE',subtitle:'Every core, awake.',description:'A tiny tray app that turns off CPU core parking in one click and shows what every core is doing.',platform:'Windows',type:'CPU core control',art:'EVERY CORE, AWAKE'}},
+  chameleon:{id:'008',title:['Chameleon'],short:'CHAMELEON',url:'https://vulob1.github.io/Chameleon/',
+   es:{category:'MANDOS / GAMING',subtitle:'Un mando, sin duplicados.',description:'Hace que un mando Switch Pro parezca un único mando de Xbox 360 para todos los juegos, por Bluetooth o USB.',platform:'Windows',type:'Adaptador de mando',art:'ONE PAD / NO DUPLICATES'},
+   en:{category:'CONTROLLERS / GAMING',subtitle:'One pad, no duplicates.',description:'Makes a Switch Pro Controller look like a single Xbox 360 pad to every game, over Bluetooth or USB.',platform:'Windows',type:'Controller adapter',art:'ONE PAD / NO DUPLICATES'}},
+  pixelpbr:{id:'009',title:['PixelPBR'],short:'PIXELPBR',url:'https://vulob1.github.io/PixelPBR/',
+   es:{category:'MINECRAFT / SHADERS',subtitle:'Pixelado, pero con profundidad.',description:'Un shader para Minecraft 1.21.1 con materiales labPBR, sombras pixel-art y luz de bloque de colores.',platform:'Minecraft · Iris',type:'Shader para Minecraft',art:'PIXEL SHADOWS / LABPBR'},
+   en:{category:'MINECRAFT / SHADERS',subtitle:'Pixelated, but with depth.',description:'A shader pack for Minecraft 1.21.1 with labPBR materials, pixel-art shadows and coloured block light.',platform:'Minecraft · Iris',type:'Minecraft shader',art:'PIXEL SHADOWS / LABPBR'}}
  };
  const labels={
   es:{preview:'VISTA DE LA APLICACIÓN',caption:'CAPTURA REAL / ',identity:'IDENTIDAD DEL PROYECTO',art:'ILUSTRACIÓN TIPOGRÁFICA / ',alt:'Captura real de '},
@@ -32,7 +44,7 @@
  const EN={
   'Proyectos':'Projects','Proyectos que Vulito necesitaba':'Projects Vulito needed','Si no lo encuentras, consíguelo tú mismo.':"If you can't find it, get it yourself.",
   'CREAR. EXPLORAR. COMPARTIR.':'CREATE. EXPLORE. SHARE.',
-  '01 / IMÁGENES':'01 / IMAGES','02 / IA LOCAL':'02 / LOCAL AI','03 / GAMING':'03 / GAMING','04 / EXPERIMENTOS':'04 / EXPERIMENTS','05 / FIREFOX':'05 / FIREFOX',
+  '01 / IMÁGENES':'01 / IMAGES','02 / IA LOCAL':'02 / LOCAL AI','03 / GAMING':'03 / GAMING','04 / EXPERIMENTOS':'04 / EXPERIMENTS','05 / FIREFOX':'05 / FIREFOX','06 / HERRAMIENTAS':'06 / TOOLS','07 / SISTEMA':'07 / SYSTEM','08 / MANDOS':'08 / CONTROLLERS',
   'EXPLORAR CONEXIÓN ↗':'EXPLORE CONNECTION ↗','RED CONCEPTUAL DE PROYECTOS':'CONCEPTUAL PROJECT NETWORK',
   'DESCUBRE LO QUE HAY DETRÁS':"DISCOVER WHAT'S BEHIND",
   '01 / EXPLORAR UNA CONEXIÓN':'01 / EXPLORE A CONNECTION','PLATAFORMA':'PLATFORM','CATEGORÍA':'CATEGORY','DESCUBRIR PROYECTO':'DISCOVER PROJECT',
